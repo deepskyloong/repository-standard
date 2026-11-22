@@ -54,6 +54,7 @@ It runs the Bun format check over code, the Prettier check over Markdown, the ch
 | Change a placeholder value or notation | `template/README.md` |
 | Change naming or citation rules | `docs/norm/rules.md`, `docs/conventions.md`, `template/core/docs/conventions.md`, `docs/README.md`, `template/core/docs/README.md`, `scripts/docs-model.ts` naming patterns |
 | Change the commit convention | `docs/norm/committing.md`, `docs/committing.md`, `template/core/docs/committing.md` |
+| Change the closeout steps, the acceptance checklist, or the summary shape | `work-packages/README.md`, `template/effort/work-packages/README.md`, `template/effort/work-packages/summary.md`, `template/effort/docs/workflow.md` |
 | Change the skill's modes or steps | `SKILL.md`, `docs/norm/roles.md` when a mode reads a new role |
 | Change a generated path | `docs/norm/rules.md`, `scripts/docs-model.ts` `GENERATED_DIRS` |
 

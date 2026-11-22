@@ -15,6 +15,7 @@
 - Target: <what is true now that was not before>
 - Standard: <ADR-nnnn — one clause; or "none">
 - Program: <backlog item state and what opens next; or "none">
+- Branch: <`<branch>` — merged at `<commit>`, or left unmerged for review (`<destination>`)>
 
 ## Residuals
 

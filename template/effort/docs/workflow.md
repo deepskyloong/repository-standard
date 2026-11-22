@@ -7,7 +7,7 @@
 
 ## Deviations
 
-The lifecycle is normative in the page named above: when a package exists, the four fields it carries before work starts, the `Current state` block, the work-item form, the three permitted compromises, the five closeout steps, and the acceptance checklist. This page states a difference and the constraint that forces it; it never restates the norm, because a restatement goes stale without anyone noticing, and a base pointer needs no edit when the norm changes.
+The lifecycle is normative in the page named above: when a package exists, the four fields it carries before work starts, the `Current state` block, the work-item form, the three permitted compromises, the six closeout steps, and the acceptance checklist. This page states a difference and the constraint that forces it; it never restates the norm, because a restatement goes stale without anyone noticing, and a base pointer needs no edit when the norm changes.
 
 | Norm clause | This repository | Why |
 | --- | --- | --- |

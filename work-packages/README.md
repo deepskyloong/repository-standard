@@ -26,7 +26,7 @@ Closed packages move to `work-packages/archive/<slug>/`; `work-packages/archive/
 
 ## Closeout checklist
 
-The five closeout steps are in `docs/norm/flow.md`; this checklist verifies them.
+The six closeout steps are in `docs/norm/flow.md`; this checklist verifies them.
 
 - [ ] `summary.md` opens with `Date:`, `Acceptance:`, `Gate:`, and `Criteria:`, and has `Outcome`, `Residuals`, `Compromises`, and `Verification`; every residual has a destination, and `Compromises` holds only the three permitted types.
 - [ ] `summary.md` names every evidence directory; none is empty.
@@ -37,4 +37,5 @@ The five closeout steps are in `docs/norm/flow.md`; this checklist verifies them
 - [ ] Every work item has one file under `items/` and one row in the board's index.
 - [ ] This table no longer lists the package; `work-packages/archive/README.md` does.
 - [ ] The package is at `work-packages/archive/<slug>/` and frozen.
+- [ ] The branch is merged, or the maintainer's answer on an unmerged branch is recorded in `summary.md`'s `Outcome`.
 - [ ] The gate is green.
