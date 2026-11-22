@@ -3,11 +3,11 @@
 ## Current state
 
 - Updated: 2026-11-22
-- Status: open
-- Phase: P3 — Downstream
+- Status: closed
+- Phase: P3 — closeout
 - Gate: all green (2026-11-22; 108 tests, two soft standard warnings)
-- Next: W08 — record the migration as a case
-- Last done: W07 — the kit derives from the norm (kit f1821b9)
+- Next: none
+- Last done: W08 — the migration case (3d70e36); package archived
 - Blocked: none
 - Open decisions: none
 
@@ -15,7 +15,7 @@
 
 | Repository | Branch | Gate command | Last result |
 | --- | --- | --- | --- |
-| repository-standard | `feature/code-policy` | `bun run gate` | PASS 2026-11-22 (179 markdown files, 108 tests, 0 fail; two soft warnings (`flow.md`, `roles.md`)) |
+| repository-standard | `feature/code-policy` | `bun run gate` | PASS 2026-11-22 (182 markdown files, 108 tests, 0 fail; two soft warnings (`flow.md`, `roles.md`)) |
 
 ## Work items
 
@@ -45,4 +45,4 @@
 | --- | --- | --- |
 | [W06](items/W06.md) | Admit the findings topic and decide its contract | done |
 | [W07](items/W07.md) | Derive the skill from the norm | done |
-| [W08](items/W08.md) | Record the migration as a case | todo |
+| [W08](items/W08.md) | Record the migration as a case | done |

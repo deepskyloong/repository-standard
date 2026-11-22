@@ -19,7 +19,6 @@ One directory per effort that needs a ledger: `work-packages/<slug>/`, holding f
 
 | Slug | Goal | Track | Status |
 | --- | --- | --- | --- |
-| [code-policy](code-policy/spec.md) | Carry code principles and patterns as a norm chapter, with derived agent-facing copies | default | open |
 
 ## Archived
 
