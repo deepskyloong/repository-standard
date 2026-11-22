@@ -22,5 +22,6 @@ The page is the only home. No agent-facing copy quotes it, and no comparison run
 
 - One source: the drift class disappears with the script, the skill's three files, and its index row.
 - `docs/norm/code.md` is read on demand through the prompt, in every product, rather than quoted inline.
-- `i-architecture-design` cites the page where it cited the skill.
+- i-architecture-design cites the page where it cited the skill.
+- The kit's three source documents — the decoupling guide, the finding guide, and the migration case — retire with it; the norm pages and the case page are the only copies.
 - `ADR-0038`'s decision stands; its consequence that the skill becomes a derived copy is superseded.
