@@ -6,8 +6,8 @@
 - Status: open
 - Phase: P3 — Downstream
 - Gate: all green (2026-11-22; 108 tests, two soft standard warnings)
-- Next: W07 — the kit derives from the norm
-- Last done: W06 — the findings topic is admitted, the contract deferred
+- Next: W08 — record the migration as a case
+- Last done: W07 — the kit derives from the norm (kit f1821b9)
 - Blocked: none
 - Open decisions: none
 
@@ -44,5 +44,5 @@
 | Item | Title | Status |
 | --- | --- | --- |
 | [W06](items/W06.md) | Admit the findings topic and decide its contract | done |
-| [W07](items/W07.md) | Derive the skill from the norm | todo |
+| [W07](items/W07.md) | Derive the skill from the norm | done |
 | [W08](items/W08.md) | Record the migration as a case | todo |
