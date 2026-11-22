@@ -26,6 +26,7 @@ import {
   requiredFiles,
   roleCoverage,
   rolePaths,
+  routingRows,
   runChecks,
   tables,
   type Runner,
@@ -139,6 +140,44 @@ describe('entries', () => {
     const rows = ['| A |', '| --- |', ...Array.from({ length: 41 }, () => '| row |')]
     const findings = entries(createContext(fixture({ 'docs/README.md': `${rows.join('\n')}\n` })))
     expect(codes(findings)).toEqual(['budget.entry_limit'])
+  })
+})
+
+describe('routingRows', () => {
+  const routing = (rows: number): string =>
+    [
+      '## Which file answers which question',
+      '',
+      '| Task | Read |',
+      '| --- | --- |',
+      ...Array.from({ length: rows }, () => '| x | y |'),
+    ].join('\n')
+
+  test('counts the routing table, not the tables beside it', () => {
+    const text = [
+      '# A',
+      '',
+      routing(13),
+      '',
+      '## Change surface',
+      '',
+      '| Change | Also update |',
+      '| --- | --- |',
+      ...Array.from({ length: 12 }, () => '| a | b |'),
+      '',
+    ].join('\n')
+    const findings = routingRows(createContext(fixture({ 'AGENTS.md': text })))
+    expect(codes(findings)).toEqual(['budget.routing_rows'])
+  })
+
+  test('twelve rows are inside the limit', () => {
+    const findings = routingRows(createContext(fixture({ 'AGENTS.md': routing(12) })))
+    expect(findings).toEqual([])
+  })
+
+  test('a missing heading is a finding, not a silent pass', () => {
+    const findings = routingRows(createContext(fixture({ 'AGENTS.md': '# A\n' })))
+    expect(codes(findings)).toEqual(['budget.routing_heading'])
   })
 })
 

@@ -10,6 +10,7 @@ import {
   entryLimit,
   namingPattern,
   pyRepr,
+  sectionTableEntries,
   splitCells,
   splitLines,
   tableEntries,
@@ -58,6 +59,28 @@ describe('tableEntries', () => {
 
   test('a file with no table has no entries', () => {
     expect(tableEntries('# Title\n\nprose\n')).toBe(0)
+  })
+})
+
+describe('sectionTableEntries', () => {
+  const section = (rows: number): string =>
+    [
+      '## Routing table',
+      '',
+      '| Task | Read |',
+      '| --- | --- |',
+      ...Array.from({ length: rows }, () => '| x | y |'),
+      '',
+    ].join('\n')
+
+  test('counts the table under the heading and ignores the one after it', () => {
+    const text = `${section(12)}\n## Commands\n\n| Action | Command |\n| --- | --- |\n| a | b |\n`
+    expect(sectionTableEntries(text, '## Routing table')).toBe(12)
+  })
+
+  test('a missing heading or a section without a table has no measurement', () => {
+    expect(sectionTableEntries(section(3), '## Elsewhere')).toBeNull()
+    expect(sectionTableEntries('## Routing table\n\nprose\n', '## Routing table')).toBeNull()
   })
 })
 

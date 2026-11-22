@@ -22,7 +22,7 @@ Deferred items only: an item here binds nothing, and records a decision not yet 
 | [B-0007](B-0007-frozen-evidence-role.md) | A home for frozen evidence | open | A second repository keeps a frozen protocol |
 | [B-0008](B-0008-tombstone-role.md) | Tombstones have no role row | closed | The first tombstone in the rollout |
 | [B-0009](B-0009-module-readme-budget.md) | Module README has no budget | open | gearset's five module READMEs are measured |
-| [B-0010](B-0010-routing-entry-limit.md) | Routing-table limit is unenforced | open | The next `AGENTS.md` change |
+| [B-0010](B-0010-routing-entry-limit.md) | Routing-table limit is unenforced | closed | The next `AGENTS.md` change |
 | [B-0011](B-0011-overlay-markdown-formatting.md) | Overlays format no Markdown | open | The first forge needing Markdown normalization |
 | [B-0012](B-0012-bun-fmt-table-layout.md) | bun fmt may keep tables compact | open | bun fmt gains a table padding setting |
 | [B-0013](B-0013-commit-base-home.md) | The commit base lives outside the norm source | closed | The norm-source model lands, or the commit convention changes |

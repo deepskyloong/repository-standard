@@ -60,6 +60,14 @@ const SPECS = {
     template: '{path}: volume {measured} exceeds {limit} (soft)',
   },
   'budget.entry_limit': { level: 'fail', template: '{path}: entries {measured} exceed {limit}' },
+  'budget.routing_rows': {
+    level: 'fail',
+    template: '{path}: routing table {measured} rows exceed {limit}',
+  },
+  'budget.routing_heading': {
+    level: 'fail',
+    template: '{path}: routing section not found: {heading}',
+  },
 
   'table.cell_count': {
     level: 'fail',

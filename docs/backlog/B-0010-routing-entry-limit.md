@@ -18,3 +18,7 @@ Compress the six norm-page rows into one `docs/norm/` row; the norm index alread
 ## Revisit when
 
 The next change to `AGENTS.md`, or the first portable checker (`B-0002`). The compression is a prerequisite for adding a `work-packages/README.md` routing row without breaking the budget.
+
+## Outcome
+
+Closed 2026-11-22: the routing table is 8 rows, and `scripts/check.ts` reports `budget.routing_rows` above 12 and `budget.routing_heading` when the section is missing; `docs/norm/rules.md` R4b names the routing table. Gate green, 113 tests.

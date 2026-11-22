@@ -30,6 +30,7 @@ import {
   pyRepr,
   pyStrip,
   ROLE_NAMES,
+  sectionTableEntries,
   SKIP_PARTS,
   splitCells,
   splitLines,
@@ -179,6 +180,33 @@ export function entries(context: Context): Finding[] {
     const measured = tableEntries(context.readText(key))
     if (measured > limit) {
       findings.push(finding('budget.entry_limit', { path: key, measured, limit }))
+    }
+  }
+  return findings
+}
+
+/**
+ * One table's budget inside a file that holds several: a root `AGENTS.md` carries a routing
+ * table, a command table, and a change surface, so a file-wide count cannot express
+ * `docs/norm/rules.md`, "Root `AGENTS.md`" (routing table ≤12 rows). A missing heading is a
+ * finding — a renamed section must not retire the rule in silence.
+ */
+const SECTION_ENTRY_LIMITS = new Map<string, { heading: string; limit: number }>([
+  ['AGENTS.md', { heading: '## Which file answers which question', limit: 12 }],
+  ['template/core/AGENTS.md', { heading: '## Routing table', limit: 12 }],
+])
+
+export function routingRows(context: Context): Finding[] {
+  const findings: Finding[] = []
+  for (const [key, { heading, limit }] of SECTION_ENTRY_LIMITS) {
+    if (!context.exists(key)) {
+      continue
+    }
+    const measured = sectionTableEntries(context.readText(key), heading)
+    if (measured === null) {
+      findings.push(finding('budget.routing_heading', { path: key, heading }))
+    } else if (measured > limit) {
+      findings.push(finding('budget.routing_rows', { path: key, measured, limit }))
     }
   }
   return findings
@@ -520,6 +548,7 @@ export function runChecks(context: Context, options: RunOptions = {}): Finding[]
     ...links(context),
     ...budgets(context),
     ...entries(context),
+    ...routingRows(context),
     ...markers(context),
     ...indexAutonomy(context),
     ...naming(context),

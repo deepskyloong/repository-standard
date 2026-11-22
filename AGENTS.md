@@ -19,27 +19,20 @@ This file is the per-turn rule layer: red lines, the gate, and the routing table
 bun run gate
 ```
 
-It runs the Bun format check over code, the Prettier check over Markdown, the checker's tests, and the document checks. The document checks cover every `docs/` and `template/` directory that contains markdown has a README, every `docs/` page maps to a declared role, every internal markdown link resolves, every markdown file's volume is inside its hard budget (a soft breach prints a warning), index tables are inside their row limit, file names follow the naming convention, indexes carry no totals, every work package has its ledger files, its board's `Next`, `Blocked`, and `Last done` agree with its index, and every summary names its evidence, no unfinished marker survives, and no paragraph is hard-wrapped. The prose stage calls the `md-tools` CLI in the python-toolkit checkout named by `MD_TOOLS_PROJECT`; an unset variable fails the gate rather than skipping the stage. CI runs the same stages except the prose one on push and pull request (`bun run gate:ci`), because `md-tools` is not reachable from CI; the workflow names the omission and the pass line repeats it, and CI adds no stage the command does not run. Run it after any norm or template edit. A green run is the minimum for a commit, not evidence that the prose is right.
+It runs the Bun format check over code, the Prettier check over Markdown, the checker's tests, and the document checks. The document checks cover every `docs/` and `template/` directory that contains markdown has a README, every `docs/` page maps to a declared role, every internal markdown link resolves, every markdown file's volume is inside its hard budget (a soft breach prints a warning), index tables and each routing table are inside their row limits, file names follow the naming convention, indexes carry no totals, every work package has its ledger files, its board's `Next`, `Blocked`, and `Last done` agree with its index, and every summary names its evidence, no unfinished marker survives, and no paragraph is hard-wrapped. The prose stage calls the `md-tools` CLI in the python-toolkit checkout named by `MD_TOOLS_PROJECT`; an unset variable fails the gate rather than skipping the stage. CI runs the same stages except the prose one on push and pull request (`bun run gate:ci`), because `md-tools` is not reachable from CI; the workflow names the omission and the pass line repeats it, and CI adds no stage the command does not run. Run it after any norm or template edit. A green run is the minimum for a commit, not evidence that the prose is right.
 
 ## Which file answers which question
 
 | Task | Read |
 | --- | --- |
-| Understand what the standard is and why it is shaped this way | `docs/norm/foundations.md` |
-| Decide where a new document belongs, or add/remove a role | `docs/norm/roles.md` |
+| Understand a role, a level, a rule, a budget, or an overlay | `docs/norm/README.md` |
 | Write or review a repository README | `docs/norm/repository-readme.md` |
-| Decide which level (root / member / module) owns a file | `docs/norm/flow.md` |
-| Change a rule, a budget, or a retirement exception | `docs/norm/rules.md` |
 | Change the README contract | `docs/norm/repository-readme.md`, `template/core/README.md` |
-| Change a language overlay or the gate contract | `docs/norm/overlays.md` |
-| Move an existing repository onto this standard | `docs/workflow.md`, Mode 3 |
-| Operate on a target repository (forge / audit / migrate) | `docs/workflow.md` |
+| Move an existing repository onto this standard (Mode 3), or operate on a target | `docs/workflow.md` |
 | Change where this repository's own files live | `docs/structure.md` |
 | Change language, naming, citation, or a discrimination | `docs/conventions.md` |
-| Change the commit message convention | `docs/norm/committing.md` (norm), `docs/committing.md` (deviations) |
-| Change provenance, ownership, or the review flow | `docs/norm/foundations.md` (provenance and distribution), `docs/norm/flow.md` (who decides, review) |
-| Ask why a choice was made, or what was rejected | `docs/decisions/` |
-| Ask what is deliberately deferred | `docs/backlog/` |
+| Change the commit message convention | `docs/norm/committing.md`, `docs/committing.md` |
+| Ask why a choice was made, or what is deferred | `docs/decisions/`, `docs/backlog/` |
 
 ## Change surface — same commit, or it is incomplete
 

@@ -14,7 +14,7 @@ A rule earns a row only when it cuts across roles. A constraint on one artifact'
 | R2 | Index autonomy: no totals in indexes or structure pages | strong | `scripts/check.ts` scans the index pages and both `structure.md` pages for count-plus-noun patterns |
 | R3 | Change surface: norm → template → skill in the same or next commit; a page that only points at the norm source needs no edit | weak | Review against the `AGENTS.md` table |
 | R4a | Volume budgets are measured in non-whitespace characters and carry a soft and a hard line; soft is a review signal, hard fails the gate | strong | `scripts/check.ts` measures every budgeted file, warns above soft and fails above hard |
-| R4b | Entry budgets are measured in table rows | strong | `scripts/check.ts` counts rows in the index tables that carry a limit |
+| R4b | Entry budgets are measured in table rows | strong | `scripts/check.ts` counts rows in the index tables and in the routing table that carry a limit |
 | R5 | Every `docs/` page maps to a declared role, including optional ones | strong | `scripts/check.ts` role-path map; an unmapped path fails |
 | R6 | No empty directories | strong | `scripts/check.ts` fails on a directory with no files |
 | R7 | Files under a generated path carry the generated header | strong | `scripts/check.ts` scans `dist/` and any file whose first line self-declares generated |

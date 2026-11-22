@@ -142,6 +142,33 @@ export function tableEntries(text: string): number {
   return Math.max(rows.length - 1, 0)
 }
 
+/**
+ * Entries in the table under one heading, or null when the heading or its table is absent.
+ *
+ * A file that holds several tables — a root `AGENTS.md` with a routing table, a change
+ * surface, and a command table — cannot be measured by `tableEntries`, which counts every
+ * table at once (`docs/norm/rules.md`, root `AGENTS.md`). A null is a finding, not a pass:
+ * a renamed heading must not silently retire the rule.
+ */
+export function sectionTableEntries(text: string, heading: string): number | null {
+  const lines = splitLines(text)
+  const start = lines.indexOf(heading)
+  if (start === -1) {
+    return null
+  }
+  const rest = lines.slice(start + 1)
+  const first = rest.findIndex(line => line.startsWith('|'))
+  if (first === -1) {
+    return null
+  }
+  let last = first
+  while (last < rest.length && rest[last].startsWith('|')) {
+    last += 1
+  }
+  const rows = rest.slice(first, last).filter(line => !matchesFully(TABLE_DELIMITER, line))
+  return Math.max(rows.length - 1, 0)
+}
+
 /** Split a table row on unescaped pipes, keeping the padding. */
 export function splitCells(row: string): string[] {
   const body = pyStrip(row).slice(1, -1)
