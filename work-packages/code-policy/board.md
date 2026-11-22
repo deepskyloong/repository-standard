@@ -4,10 +4,10 @@
 
 - Updated: 2026-11-22
 - Status: open
-- Phase: P1 — Norm pages
+- Phase: P2 — Enforcement
 - Gate: all green (2026-11-22; two soft standard warnings)
-- Next: W02 — write `docs/norm/code.md` with ten principles, the two terms, and the pointer row
-- Last done: W01 — scope decision recorded (`31660cf`)
+- Next: W04 — express the pattern in both overlays and gate it
+- Last done: W03 — code chapter and messages page landed
 - Blocked: none
 - Open decisions: whether `docs/contracts/findings.md` is admitted with W05's coded checker or waits for the portable checker (maintainer)
 
@@ -29,8 +29,8 @@
 
 | Item | Title | Status |
 | --- | --- | --- |
-| [W02](items/W02.md) | Write the principles page | todo |
-| [W03](items/W03.md) | Open the code chapter with `messages` | todo |
+| [W02](items/W02.md) | Write the principles page | done |
+| [W03](items/W03.md) | Open the code chapter with `messages` | done |
 
 ### P2 — Enforcement
 

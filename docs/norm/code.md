@@ -26,4 +26,4 @@ A principle yields to an explicit requirement: a contract a consumer relies on, 
 | Prefer duplication to the wrong abstraction; abstract on the third occurrence. | A shared helper whose callers pass flags that change what it does. |
 | Flat over nested, concrete over generic, explicit over magic. | A callback inside a callback; a string-keyed dispatch where a call would do; behavior that depends on an unstated default. |
 
-A solution shape that a repository adopts when a condition holds is a pattern, not a principle. Patterns are one per page, and the chapter index states each one's adoption condition.
+A solution shape that a repository adopts when a condition holds is a pattern, not a principle. Patterns live at `docs/norm/code/`, one per page; the [chapter index](code/README.md) states each one's adoption condition.

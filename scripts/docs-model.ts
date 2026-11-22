@@ -66,6 +66,7 @@ export const DOC_ROLE_PATHS = [
   'docs/suite-tracks\\.md',
   'docs/adapters\\.md',
   'docs/norm/(README|[a-z0-9-]+)\\.md',
+  'docs/norm/code/(README|[a-z0-9-]+)\\.md',
   'docs/decisions/(README|ADR-\\d{4}-[a-z0-9-]+)\\.md',
   'docs/backlog/(README|B-\\d{4}-[a-z0-9-]+)\\.md',
   'docs/contracts/(README|[a-z0-9-]+)\\.md',

@@ -10,6 +10,7 @@ The binding text of the repository standard. Read by question, not in order.
 | [flow](flow.md) | Which level owns a file, how work moves from idea to closeout, who decides and how a change is reviewed |
 | [rules](rules.md) | Which rules are enforced, how budgets are measured, what may be retired |
 | [code](code.md) | Which code principles bind every repository, and how a pattern differs |
+| [code/](code/README.md) | The worked shapes: one pattern per page, each with its adoption condition |
 | [overlays](overlays.md) | What the language-agnostic core promises, what each overlay supplies |
 | [committing](committing.md) | What every commit message must state, and which parts a repository may override |
 
