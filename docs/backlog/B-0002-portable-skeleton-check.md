@@ -29,7 +29,7 @@ The first implementation is read-only and fails with a file path. It does not re
 11. The norm source is defined exactly once, on the `Norm source:` line in `AGENTS.md`; every `{{NORM_SOURCE}}` reference resolves to that source, and no absolute source path appears outside the definition.
 12. A backlog index row's `Status` is one of `open`, `active`, `paused`, or `closed`; a typo is a finding.
 
-The checker may report a finding as `path: message`; it must not attempt a fix. A fix belongs in the repository, not the gate.
+The checker reports each finding as a code plus the facts behind it and renders `path: message`; it must not attempt a fix, and no consumer may parse the line. A fix belongs in the repository, not the gate.
 
 ## Runtime decision
 
@@ -42,4 +42,4 @@ Both consume the check set above and the same fixture repository. The duplicatio
 
 ## Revisit when
 
-The first repository is forged, or the first migration reaches its overlay step. The check set above is ready before that trigger; implementation waits for the first real target repository.
+The first repository is forged, or the first migration reaches its overlay step. The check set above is ready before that trigger; implementation waits for the first real target repository. A JSON surface, and with it `docs/contracts/findings.md`, waits for the first consumer that reads records rather than lines.

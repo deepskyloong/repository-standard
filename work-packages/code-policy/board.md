@@ -4,18 +4,18 @@
 
 - Updated: 2026-11-22
 - Status: open
-- Phase: P2 — Enforcement
+- Phase: P3 — Downstream
 - Gate: all green (2026-11-22; 108 tests, two soft standard warnings)
-- Next: W06 — admit the findings topic and decide its contract
-- Last done: W05 — the checker returns codes and params
+- Next: W07 — the kit derives from the norm
+- Last done: W06 — the findings topic is admitted, the contract deferred
 - Blocked: none
-- Open decisions: whether `docs/contracts/findings.md` is admitted with W05's coded checker or waits for the portable checker (maintainer)
+- Open decisions: none
 
 ## Repositories
 
 | Repository | Branch | Gate command | Last result |
 | --- | --- | --- | --- |
-| repository-standard | `feature/code-policy` | `bun run gate` | PASS 2026-11-22 (178 markdown files, 108 tests, 0 fail; two soft warnings (`flow.md`, `roles.md`)) |
+| repository-standard | `feature/code-policy` | `bun run gate` | PASS 2026-11-22 (179 markdown files, 108 tests, 0 fail; two soft warnings (`flow.md`, `roles.md`)) |
 
 ## Work items
 
@@ -43,6 +43,6 @@
 
 | Item | Title | Status |
 | --- | --- | --- |
-| [W06](items/W06.md) | Admit the findings topic and decide its contract | todo |
+| [W06](items/W06.md) | Admit the findings topic and decide its contract | done |
 | [W07](items/W07.md) | Derive the skill from the norm | todo |
 | [W08](items/W08.md) | Record the migration as a case | todo |

@@ -7,6 +7,7 @@ A pattern is a solution shape a repository adopts when its condition holds. One 
 | Topic | Applies when | Page |
 | --- | --- | --- |
 | Messages | A program emits text a human reads, and another consumer may read it too: a tuned threshold, a second output format, or codes that tooling should group | [messages](messages.md) |
+| Findings | A checker or linter reports problems a reader must fix or judge, and the report may later be grouped, counted, or routed | [findings](findings.md) |
 
 ## Admission and exit
 
