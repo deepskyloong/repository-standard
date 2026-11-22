@@ -1,6 +1,6 @@
 # ADR-0038 — Code principles are a norm page and a pattern chapter
 
-Status: Accepted (2026-11-22)
+Status: Superseded in part by [ADR-0039](ADR-0039-principles-page-is-its-own-delivery.md) (2026-11-22); the page-and-chapter decision and the charter narrowing still hold.
 
 ## Context
 
