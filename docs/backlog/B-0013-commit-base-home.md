@@ -16,4 +16,4 @@ The norm-source model lands, or the commit convention changes — whichever come
 
 ## Outcome
 
-Closed 2026-11-18 as superseded by `B-0005`. Committing is a general norm; the norm now lives at `docs/norm/committing.md`, and `docs/committing.md` is a base pointer plus this repository's deviations. personal-agent-kit's old base is a forwarding stub, and its consumers point at the new absolute path until they define a norm source.
+Closed 2026-11-18 as superseded by `B-0005`. Committing is a general norm; the norm now lives at `docs/norm/committing.md`, and `docs/committing.md` is a base pointer plus this repository's deviations. personal-agent-kit's old base was a forwarding stub, retired on 2026-11-22; every consumer now points at the new absolute path until it defines a norm source.
