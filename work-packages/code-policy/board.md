@@ -4,10 +4,10 @@
 
 - Updated: 2026-11-22
 - Status: open
-- Phase: P0 — Decision
+- Phase: P1 — Norm pages
 - Gate: all green (2026-11-22; two soft standard warnings)
-- Next: W01 — accept `ADR-0038`, narrow the charter, name code principles in the README
-- Last done: none
+- Next: W02 — write `docs/norm/code.md` with ten principles, the two terms, and the pointer row
+- Last done: W01 — scope decision recorded (`31660cf`)
 - Blocked: none
 - Open decisions: whether `docs/contracts/findings.md` is admitted with W05's coded checker or waits for the portable checker (maintainer)
 
@@ -23,7 +23,7 @@
 
 | Item | Title | Status |
 | --- | --- | --- |
-| [W01](items/W01.md) | Accept `ADR-0038` and narrow the charter | todo |
+| [W01](items/W01.md) | Accept `ADR-0038` and narrow the charter | done |
 
 ### P1 — Norm pages
 
