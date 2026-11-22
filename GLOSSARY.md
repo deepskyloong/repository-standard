@@ -94,6 +94,16 @@ _Avoid_: line limit
 
 _Avoid_: simplified mode
 
+### Code
+
+**principle**: A constraint that applies wherever code is written, stated once at `docs/norm/code.md`; it is `weak` unless a gate enforces it, and every entry names an observable symptom.
+
+_Avoid_: best practice, guideline, convention (for this sense)
+
+**pattern**: A solution shape a repository adopts when its condition holds, stated one per page; it is not a constraint that applies everywhere.
+
+_Avoid_: best practice, recipe, template (for this sense)
+
 ### Specs and artifacts
 
 **spec (work package)**: `work-packages/<slug>/spec.md`: what one effort will do.

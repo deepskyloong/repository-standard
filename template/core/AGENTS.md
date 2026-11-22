@@ -39,6 +39,7 @@ It runs the stages its overlay's README names: format check, lint, typecheck, te
 | Where a new file belongs | `docs/structure.md` |
 | How to write a document, which role it is | `docs/conventions.md` |
 | How to write a commit message | `docs/committing.md` |
+| Which code principles bind | `{{NORM_SOURCE}}/docs/norm/code.md` |
 | How an effort is created and closed | `docs/workflow.md` (when present) |
 | What is deliberately deferred | `docs/backlog/` (when present) |
 | Why a choice was made | `docs/decisions/` (when present) |

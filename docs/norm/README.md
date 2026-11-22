@@ -9,6 +9,7 @@ The binding text of the repository standard. Read by question, not in order.
 | [repository-readme](repository-readme.md) | What a repository README must answer, and what it must not become |
 | [flow](flow.md) | Which level owns a file, how work moves from idea to closeout, who decides and how a change is reviewed |
 | [rules](rules.md) | Which rules are enforced, how budgets are measured, what may be retired |
+| [code](code.md) | Which code principles bind every repository, and how a pattern differs |
 | [overlays](overlays.md) | What the language-agnostic core promises, what each overlay supplies |
 | [committing](committing.md) | What every commit message must state, and which parts a repository may override |
 
