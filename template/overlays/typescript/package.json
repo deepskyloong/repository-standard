@@ -8,7 +8,8 @@
     "typecheck": "tsc --noEmit",
     "test": "bun test",
     "build": "tsc -p tsconfig.build.json",
-    "gate": "bun run format:check && bun run lint && bun run typecheck && bun run test && bun run build"
+    "messages": "bun tools/check-messages.ts",
+    "gate": "bun run format:check && bun run lint && bun run typecheck && bun run test && bun run build && bun run messages"
   },
   "devDependencies": {
     "oxfmt": "^0.78.0",

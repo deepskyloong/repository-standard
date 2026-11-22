@@ -13,6 +13,7 @@ Applies to a repository whose runtime is Bun. Copy every file in this directory 
 | `.oxlintrc.json` | Lint rules |
 | `.oxfmtrc.json` | Format rules |
 | `.gitignore` | Runtime and regenerable paths |
+| `tools/check-messages.ts` | The message-catalog stage; a repository that declares no catalog passes |
 | `.github/workflows/gate.yml` | CI forwarding: frozen install, then the local gate |
 | `src/index.ts` | Seed module; replace or delete |
 | `tests/index.test.ts` | Seed test; replace or delete |
@@ -33,7 +34,9 @@ Applies to a repository whose runtime is Bun. Copy every file in this directory 
 bun run gate
 ```
 
-Stages, fail-fast: `oxfmt --check src tests` → `oxlint src tests` → `tsc --noEmit` → `bun test` → `tsc -p tsconfig.build.json`.
+Stages, fail-fast: `oxfmt --check src tests` → `oxlint src tests` → `tsc --noEmit` → `bun test` → `tsc -p tsconfig.build.json` → `bun tools/check-messages.ts`.
+
+The last stage reads the repository rather than the package: it fails a catalog whose placeholders and params disagree. A repository that declares no catalog passes.
 
 Both formatter and linter are scoped to `src` and `tests`. Running `oxlint` with no path walks `node_modules` and reports tens of thousands of errors that have nothing to do with this repository.
 
@@ -71,6 +74,10 @@ A commit message cites `bun run gate`, never a single stage.
 - Errors as values at boundaries; throw only at the entry point.
 - No `any` in a public signature; `unknown` plus a narrowing check instead.
 - Type-only imports use `import type` (`verbatimModuleSyntax` enforces it).
+- A finding is `{ code: Code; params: Record<string, string | number> }`; a check returns it, and one renderer turns it into text.
+- `const codes = {...} as const; type Code = keyof typeof codes`, with `SPECS: Record<Code, { template: string; params: readonly string[] }>` holding the wording and nowhere else.
+- Every value the sentence names is a field of `params`; message text is never assembled with `${}` at the raise site.
+- Declare the catalog in `package.json` under `"messages": { "module": ... }`; `bun tools/check-messages.ts` then holds its shape: namespaced codes, placeholders equal to params, one wording per code, no number typed outside a placeholder. A wording that legitimately carries one is listed under `exempt`; export `PARTS` when the catalog is merged, so the stage can prove no code was overwritten.
 
 ## C7 — traps
 
@@ -83,6 +90,7 @@ A commit message cites `bun run gate`, never a single stage.
 - **TypeScript 7 requires `rootDir` when only `src` is included.** The build config sets `"rootDir": "src"`; removing it fails with TS5011.
 - **CRLF breaks a shebang.** Add `*.ts text=lf` to `.gitattributes` if a script starts with `#!`.
 - **`composite` conflicts with `noEmit`.** Keep it out of the base config; add it only to a build config that emits.
+- **A stage outside `src` is not typechecked.** `tools/check-messages.ts` runs under `bun`, which strips types without checking them; a signature error surfaces when the stage runs, not in `tsc --noEmit`.
 
 Verified 2026-11-15 (for-the-record): bun 1.4.4, oxlint 1.93.0, oxlint-tsgolint 7.0.2007, oxfmt 0.78.0, typescript 7.0.2.
 

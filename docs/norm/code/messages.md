@@ -89,6 +89,8 @@ Guards:
 - **At call sites:** the parameter names match the template's placeholders. A formatter ignores extras and fails only on a missing one, which in a rare branch is a crash in production; a short walk over the emit calls catches it without running them.
 - **At the renderer:** a snapshot of the rendered output, so a punctuation or ordering change is reviewed rather than discovered.
 
+Each overlay states the language form in its C6 and ships the stage that holds it: `tools/check_messages.py` and `tools/check-messages.ts` fail a code that names no domain, a template whose placeholders and params disagree, two codes sharing one wording, a number typed outside a placeholder, and a code a merge overwrote (`PARTS`). A wording that legitimately carries a number is listed under `exempt`. The repository declares where the catalog lives; one that declares none passes, so a fresh copy stays green.
+
 ## Migration
 
 1. **Inventory before editing.** List every string that reaches a human; tag each element as fact, judgment, instruction, rationale, or pointer. Count the ones that duplicate a value; that ratio says whether a catalog is worth its cost.

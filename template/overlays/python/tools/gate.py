@@ -24,6 +24,7 @@ def main() -> int:
     if "build-system" in config:
         run(sys.executable, "-m", "build")
     run(sys.executable, "tools/check_tables.py")
+    run(sys.executable, "tools/check_messages.py")
     return 0
 
 

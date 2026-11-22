@@ -11,6 +11,7 @@ Applies to a repository managed with `uv`. Copy every file in this directory **e
 | `.gitignore` | Runtime, regenerable, and cache paths |
 | `tools/gate.py` | The gate runner |
 | `tools/check_tables.py` | R12's table stage; a repository that registers a frozen legacy path passes `--exempt` |
+| `tools/check_messages.py` | The message-catalog stage; a repository that declares no catalog passes |
 | `.github/workflows/gate.yml` | CI forwarding: frozen install, then the local gate |
 | `src/example_package/__init__.py` | Seed module; rename the directory and replace the code |
 | `tests/test_smoke.py` | Seed test; replace or delete |
@@ -31,9 +32,9 @@ Applies to a repository managed with `uv`. Copy every file in this directory **e
 uv run python tools/gate.py
 ```
 
-Stages, fail-fast: `ruff format --check` → `ruff check` → `pyright` when installed → `pytest` → `python -m build` when the project has a `[build-system]` → `tools/check_tables.py` (R12).
+Stages, fail-fast: `ruff format --check` → `ruff check` → `pyright` when installed → `pytest` → `python -m build` when the project has a `[build-system]` → `tools/check_tables.py` (R12) → `tools/check_messages.py`.
 
-The last stage reads every living markdown file and fails a padded table cell; a repository that registers a frozen legacy path passes `--exempt <prefix>` to it in `tools/gate.py`.
+The last two stages read the repository rather than the package: the table stage fails a padded table cell, and the message stage fails a catalog whose placeholders and params disagree. A repository that registers a frozen legacy path passes `--exempt <prefix>` to the table stage in `tools/gate.py`.
 
 The gate is a script, not a `[project.scripts]` entry. A workspace root is not an installable package, so `uv run gate` would fail with `Failed to spawn: gate`. The script form works in both a single-package repository and a workspace root.
 
@@ -69,6 +70,10 @@ A commit message cites `uv run python tools/gate.py`, never `pytest` alone.
 - Dataclasses or typed mappings at boundaries, not bare dicts.
 - Output through one formatting helper; no scattered `print` calls in library code.
 - One formatter is authoritative: editors call `ruff format`, not a reimplementation.
+- A message a human reads is a `NamedTuple` of `code` and `params`; the check returns it, and one renderer turns it into text. An exception carries the same pair.
+- Wording lives in one module as `SPECS: dict[Code, Spec]`, where `Spec` is a `NamedTuple` of `template` and `params`. A code is a literal string, never built at run time.
+- Every value the sentence names is a field of `params`; a threshold typed into the template is a stale number with a commit date.
+- Declare the catalog in `[tool.messages] module`; `tools/check_messages.py` then holds its shape: namespaced codes, placeholders equal to params, one wording per code, no number typed outside a placeholder. A wording that legitimately carries one is listed under `exempt`; export `PARTS` when the catalog is merged, so the stage can prove no code was overwritten.
 
 ## C7 — traps
 
@@ -79,6 +84,7 @@ A commit message cites `uv run python tools/gate.py`, never `pytest` alone.
 - **`python -m build` on a workspace root fails.** The gate runs the build stage only when a `[build-system]` exists; a workspace root normally has none.
 - **`wc -w` does not count Chinese.** A 5,891-character Chinese document reports about 1,000 words. Budgets use non-whitespace characters.
 - **`ruff target-version` below the runtime hides syntax.** Raise it when ruff supports the interpreter in `.python-version`.
+- **The message stage imports the package, so it needs the project environment.** `python tools/check_messages.py` outside `uv run` fails with `ModuleNotFoundError`; the gate calls it with the interpreter `uv` resolved.
 
 Verified 2026-11-14 (for-the-record): uv 0.13.1, Python 3.15.0, ruff 0.17.5, pytest 9.2.0.
 

@@ -6,8 +6,8 @@
 - Status: open
 - Phase: P2 — Enforcement
 - Gate: all green (2026-11-22; two soft standard warnings)
-- Next: W04 — express the pattern in both overlays and gate it
-- Last done: W03 — code chapter and messages page landed
+- Next: W05 — return coded findings from this repository's checker
+- Last done: W04 — both overlays express the record and gate its catalog
 - Blocked: none
 - Open decisions: whether `docs/contracts/findings.md` is admitted with W05's coded checker or waits for the portable checker (maintainer)
 
@@ -15,7 +15,7 @@
 
 | Repository | Branch | Gate command | Last result |
 | --- | --- | --- | --- |
-| repository-standard | `feature/code-policy` | `bun run gate` | PASS 2026-11-22 (174 markdown files, 90 tests, 0 fail; two soft warnings (`flow.md`, `roles.md`)) |
+| repository-standard | `feature/code-policy` | `bun run gate` | PASS 2026-11-22 (178 markdown files, 90 tests, 0 fail; two soft warnings (`flow.md`, `roles.md`)) |
 
 ## Work items
 
@@ -36,7 +36,7 @@
 
 | Item | Title | Status |
 | --- | --- | --- |
-| [W04](items/W04.md) | Express the pattern in both overlays and gate it | todo |
+| [W04](items/W04.md) | Express the pattern in both overlays and gate it | done |
 | [W05](items/W05.md) | Return coded findings from this repository's checker | todo |
 
 ### P3 — Downstream
