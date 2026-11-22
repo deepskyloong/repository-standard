@@ -25,8 +25,8 @@ export function fixture(files: Record<string, string>): string {
   return root
 }
 
-export function messages(findings: Array<{ message: string }>): string[] {
-  return findings.map(finding => finding.message)
+export function codes(findings: Array<{ code: string }>): string[] {
+  return findings.map(finding => finding.code)
 }
 
 export function cleanupFixtures(): void {

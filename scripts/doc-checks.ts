@@ -37,10 +37,9 @@ import {
   TABLE_ROW,
   tableEntries,
   volume,
-  type Finding,
-  fail,
-  warn,
 } from './docs-model.ts'
+
+import { finding, type Finding } from './findings.ts'
 
 import type { Context } from './check-context.ts'
 import { boardDashboard, packages } from './package-checks.ts'
@@ -60,7 +59,7 @@ export function requiredFiles(context: Context): Finding[] {
   const findings: Finding[] = []
   for (const name of ['README.md', 'AGENTS.md', 'GLOSSARY.md', 'docs/workflow.md']) {
     if (!context.exists(name)) {
-      findings.push(fail(`missing required file: ${name}`))
+      findings.push(finding('docs.required_file', { path: name }))
     }
   }
   for (const page of [
@@ -74,7 +73,7 @@ export function requiredFiles(context: Context): Finding[] {
     'docs/norm/committing.md',
   ]) {
     if (!context.exists(page)) {
-      findings.push(fail(`missing norm page: ${page}`))
+      findings.push(finding('docs.required_norm_page', { path: page }))
     }
   }
   return findings
@@ -85,7 +84,7 @@ export function roleCoverage(context: Context): Finding[] {
   const findings: Finding[] = []
   for (const base of ['docs', 'template']) {
     if (!context.exists(base)) {
-      findings.push(fail(`missing directory: ${base}/`))
+      findings.push(finding('docs.missing_directory', { path: `${base}/` }))
       continue
     }
     for (const directory of context.directories.filter(key => key.startsWith(`${base}/`))) {
@@ -97,7 +96,7 @@ export function roleCoverage(context: Context): Finding[] {
         continue
       }
       if (!context.exists(`${directory}/README.md`)) {
-        findings.push(fail(`missing README: ${directory}/`))
+        findings.push(finding('docs.missing_readme', { path: `${directory}/README.md` }))
       }
     }
   }
@@ -112,7 +111,7 @@ export function emptyDirectories(context: Context): Finding[] {
       continue
     }
     if (context.readDir(directory).length === 0) {
-      findings.push(fail(`empty directory: ${directory}/`))
+      findings.push(finding('docs.empty_directory', { path: `${directory}/` }))
     }
   }
   return findings
@@ -122,7 +121,7 @@ export function english(context: Context): Finding[] {
   const findings: Finding[] = []
   for (const key of context.files) {
     if (CJK.test(context.readText(key))) {
-      findings.push(fail(`CJK text: ${key}`))
+      findings.push(finding('docs.cjk_text', { path: key }))
     }
   }
   return findings
@@ -145,7 +144,7 @@ export function links(context: Context): Finding[] {
       }
       const targetPath = path.resolve(context.root, path.dirname(key), bare)
       if (!fs.existsSync(targetPath)) {
-        findings.push(fail(`broken link in ${key}: ${target}`))
+        findings.push(finding('docs.broken_link', { path: key, target }))
       }
     }
   }
@@ -162,9 +161,9 @@ export function budgets(context: Context): Finding[] {
     const [soft, hard] = limits
     const measured = volume(context.readText(key))
     if (measured > hard) {
-      findings.push(fail(`volume ${measured} > ${hard} (hard): ${key}`))
+      findings.push(finding('budget.volume_hard', { path: key, measured, limit: hard }))
     } else if (measured > soft) {
-      findings.push(warn(`volume ${measured} > ${soft} (soft): ${key}`))
+      findings.push(finding('budget.volume_soft', { path: key, measured, limit: soft }))
     }
   }
   return findings
@@ -179,7 +178,7 @@ export function entries(context: Context): Finding[] {
     }
     const measured = tableEntries(context.readText(key))
     if (measured > limit) {
-      findings.push(fail(`entries ${measured} > ${limit}: ${key}`))
+      findings.push(finding('budget.entry_limit', { path: key, measured, limit }))
     }
   }
   return findings
@@ -189,7 +188,7 @@ export function markers(context: Context): Finding[] {
   const findings: Finding[] = []
   for (const key of context.files) {
     if (MARKER.test(context.readText(key))) {
-      findings.push(fail(`unfinished marker: ${key}`))
+      findings.push(finding('docs.unfinished_marker', { path: key }))
     }
   }
   return findings
@@ -203,7 +202,7 @@ export function indexAutonomy(context: Context): Finding[] {
       continue
     }
     for (const match of context.readText(key).matchAll(COUNT_NOUN)) {
-      findings.push(fail(`count in index or structure page: ${key}: ${pyRepr(match[0])}`))
+      findings.push(finding('docs.index_count', { path: key, token: pyRepr(match[0]) }))
     }
   }
   return findings
@@ -217,7 +216,7 @@ export function naming(context: Context): Finding[] {
       continue
     }
     if (!namingPattern(key).test(name)) {
-      findings.push(fail(`file name does not match its role: ${key}`))
+      findings.push(finding('docs.name_role', { path: key }))
     }
   }
   return findings
@@ -230,7 +229,7 @@ export function rolePaths(context: Context): Finding[] {
       continue
     }
     if (!DOC_ROLE_PATHS.some(pattern => pattern.test(key))) {
-      findings.push(fail(`docs page does not map to a declared role: ${key}`))
+      findings.push(finding('docs.role_path', { path: key }))
     }
   }
   return findings
@@ -247,11 +246,7 @@ export function movedStubs(context: Context): Finding[] {
   for (const key of context.files) {
     const title = splitLines(context.readText(key))[0]
     if (title && pyStrip(title).endsWith(MOVED_MARKER)) {
-      findings.push(
-        fail(
-          `forwarding stub not admitted: ${key} — delete it and register the moved path in docs/adapters.md`,
-        ),
-      )
+      findings.push(finding('docs.forwarding_stub', { path: key }))
     }
   }
   return findings
@@ -274,7 +269,7 @@ export function explainerSections(context: Context): Finding[] {
     for (const section of sections) {
       const heading = section.split('\n')[0].trim()
       if (!/\[[^\]]*\]\([^)]+\)/.test(section)) {
-        findings.push(fail(`explainer section links nothing: ${key}: ## ${heading}`))
+        findings.push(finding('docs.explainer_section', { path: key, heading }))
       }
     }
   }
@@ -314,10 +309,7 @@ export function tables(context: Context): Finding[] {
         columns = cells.length
       } else if (cells.length !== columns) {
         findings.push(
-          fail(
-            `${key}:${number}: ${cells.length} cells, header has ${columns}; ` +
-              'escape a literal pipe as \\|',
-          ),
+          finding('table.cell_count', { path: key, line: number, cells: cells.length, columns }),
         )
       }
       for (const cell of cells) {
@@ -326,12 +318,10 @@ export function tables(context: Context): Finding[] {
           continue
         }
         if (cell !== ` ${content} `) {
-          findings.push(
-            fail(`${key}:${number}: table cell is column-aligned; one space on each side`),
-          )
+          findings.push(finding('table.padding', { path: key, line: number }))
         }
         if (content.replace(CODE_SPAN, 'x').includes('  ')) {
-          findings.push(fail(`${key}:${number}: table cell has a run of spaces`))
+          findings.push(finding('table.run_of_spaces', { path: key, line: number }))
         }
       }
     })
@@ -370,7 +360,9 @@ export function backlogStatus(context: Context): Finding[] {
       }
       const status = cells.length > 2 ? pyStrip(cells[2]) : ''
       if (!BACKLOG_STATUSES.has(status)) {
-        findings.push(fail(`${key}:${number}: unknown backlog status ${pyRepr(status)}`))
+        findings.push(
+          finding('backlog.status', { path: key, line: number, status: pyRepr(status) }),
+        )
       }
     })
   }
@@ -383,7 +375,7 @@ export function generated(context: Context): Finding[] {
     const lines = splitLines(context.readText(key))
     if (lines.length > 0 && lines[0].startsWith('generated by')) {
       if (lines.length < 2 || pyStrip(lines[1]) !== '') {
-        findings.push(fail(`generated header needs a blank second line: ${key}`))
+        findings.push(finding('docs.generated_header', { path: key }))
       }
     }
   }
@@ -394,7 +386,7 @@ export function generated(context: Context): Finding[] {
     for (const key of context.files.filter(item => item.startsWith(`${name}/`))) {
       const lines = splitLines(context.readText(key))
       if (lines.length === 0 || !lines[0].startsWith('generated by')) {
-        findings.push(fail(`generated file lacks header: ${key}`))
+        findings.push(finding('docs.generated_file', { path: key }))
       }
     }
   }
@@ -448,7 +440,7 @@ const runProcess: Runner = (command, args, env) => {
 export function prose(context: Context, options: ProseOptions = {}): Finding[] {
   const project = pyStrip(options.project ?? process.env.MD_TOOLS_PROJECT ?? '')
   if (!project) {
-    return [fail('prose check: MD_TOOLS_PROJECT is not set to the python-toolkit checkout')]
+    return [finding('prose.project_unset')]
   }
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'check-'))
   try {
@@ -482,13 +474,13 @@ export function prose(context: Context, options: ProseOptions = {}): Finding[] {
     }
     const completed = (options.run ?? runProcess)('uv', args, environment)
     if (completed.error) {
-      return [fail(`prose check: md-reflow could not run: ${completed.error.message}`)]
+      return [finding('prose.run_error', { detail: completed.error.message })]
     }
     const code = completed.status ?? -1
     if (![0, 1, 2].includes(code) || !fs.existsSync(report)) {
       const detail = splitLines(pyStrip(completed.stderr || completed.stdout || ''))
       const tail = detail.length > 0 ? detail[detail.length - 1] : 'no output'
-      return [fail(`prose check: md-reflow failed (exit ${code}): ${tail}`)]
+      return [finding('prose.exit_code', { code, detail: tail })]
     }
     const findings: Finding[] = []
     const payload = JSON.parse(fs.readFileSync(report, 'utf8')) as {
@@ -504,13 +496,11 @@ export function prose(context: Context, options: ProseOptions = {}): Finding[] {
           ? name.split(path.sep).join('/')
           : relativePath.split(path.sep).join('/')
       const blocks = (row as { blocks: unknown }).blocks
-      findings.push(
-        fail(`prose is hard-wrapped: ${key} — ${blocks} block(s), run md-reflow --apply`),
-      )
+      findings.push(finding('prose.hard_wrapped', { path: key, blocks: String(blocks) }))
     }
     const skipped = Number(payload.files_skipped ?? 0)
     if (skipped) {
-      findings.push(fail(`prose check: ${skipped} file(s) could not be read (mixed line endings)`))
+      findings.push(finding('prose.unreadable', { files: skipped }))
     }
     return findings
   } finally {

@@ -5,7 +5,6 @@
 
 import type { Context } from './check-context.ts'
 import {
-  fail,
   matchesFully,
   pyRepr,
   pyStrip,
@@ -13,8 +12,8 @@ import {
   splitLines,
   TABLE_DELIMITER,
   TABLE_ROW,
-  type Finding,
 } from './docs-model.ts'
+import { finding, type Finding } from './findings.ts'
 
 /** Every live and archived package, with archived as the flag. */
 function packageDirs(context: Context): Array<{ key: string; archived: boolean }> {
@@ -55,33 +54,33 @@ export function packages(context: Context): Finding[] {
     )
     for (const name of ['spec.md', 'plan.md']) {
       if (!context.isFile(`${key}/${name}`)) {
-        findings.push(fail(`missing package file: ${key}/${name}`))
+        findings.push(finding('package.file_missing', { path: `${key}/${name}` }))
       }
     }
     if (archived) {
       if (!context.isFile(`${key}/summary.md`)) {
-        findings.push(fail(`missing package summary: ${key}/summary.md`))
+        findings.push(finding('package.summary_missing', { path: `${key}/summary.md` }))
       }
       if (!context.isFile(board) && !context.isFile(`${key}/todo.md`)) {
-        findings.push(fail(`missing package file: ${board}`))
+        findings.push(finding('package.file_missing', { path: board }))
       }
     } else if (!context.isFile(board)) {
-      findings.push(fail(`missing package file: ${board}`))
+      findings.push(finding('package.file_missing', { path: board }))
     }
     for (const child of context.readDir(key)) {
       if (child.isFile && !ledger.has(child.name)) {
-        findings.push(fail(`unexpected package file: ${key}/${child.name}`))
+        findings.push(finding('package.file_unexpected', { path: `${key}/${child.name}` }))
       }
     }
     const summary = `${key}/summary.md`
     if (context.isFile(summary)) {
       const text = context.readText(summary)
       for (const part of summaryShape(text)) {
-        findings.push(fail(`${summary}: missing ${part}`))
+        findings.push(finding('package.summary_part', { path: summary, part }))
       }
       for (const child of context.readDir(key)) {
         if (child.isDirectory && child.name !== 'items' && !text.includes(child.name)) {
-          findings.push(fail(`evidence directory not named in summary: ${key}/${child.name}/`))
+          findings.push(finding('package.evidence_unnamed', { path: `${key}/${child.name}/` }))
         }
       }
     }
@@ -133,15 +132,13 @@ function packageItems(context: Context, key: string, hasBoard: boolean): Finding
   if (context.exists(directory)) {
     for (const child of context.readDir(directory)) {
       if (!child.isFile || !child.name.endsWith('.md')) {
-        findings.push(fail(`unexpected entry in package items: ${directory}/${child.name}`))
+        findings.push(finding('package.item_entry', { path: `${directory}/${child.name}` }))
         continue
       }
       names.push(child.name)
       const id = child.name.slice(0, -3)
       if (!context.readText(`${directory}/${child.name}`).startsWith(`# ${id} — `)) {
-        findings.push(
-          fail(`package item heading does not start with its ID: ${directory}/${child.name}`),
-        )
+        findings.push(finding('package.item_heading', { path: `${directory}/${child.name}` }))
       }
     }
   }
@@ -154,12 +151,12 @@ function packageItems(context: Context, key: string, hasBoard: boolean): Finding
   }
   for (const name of names) {
     if (!links.has(name)) {
-      findings.push(fail(`package item not linked from board: ${directory}/${name}`))
+      findings.push(finding('package.item_unlinked', { path: `${directory}/${name}` }))
     }
   }
   for (const link of links) {
     if (!names.includes(link)) {
-      findings.push(fail(`board links a missing package item: ${key}/items/${link}`))
+      findings.push(finding('package.item_missing', { path: `${key}/items/${link}` }))
     }
   }
   return findings
@@ -306,9 +303,9 @@ export function boardDashboard(context: Context): Finding[] {
     const fields = dashboardFields(text)
     for (const name of BOARD_FIELDS) {
       if (!fields.has(name)) {
-        findings.push(fail(`board field missing: ${board}: ${name}`))
+        findings.push(finding('board.field_missing', { path: board, field: name }))
       } else if (fields.get(name) === '') {
-        findings.push(fail(`board field is empty: ${board}: ${name}`))
+        findings.push(finding('board.field_empty', { path: board, field: name }))
       }
     }
     const ordered = [...fields.keys()].filter(name =>
@@ -318,47 +315,43 @@ export function boardDashboard(context: Context): Finding[] {
       ordered.length === BOARD_FIELDS.length &&
       ordered.some((name, index) => name !== BOARD_FIELDS[index])
     ) {
-      findings.push(fail(`board fields are out of order: ${board}`))
+      findings.push(finding('board.field_order', { path: board }))
     }
 
     const status = fields.get('Status') ?? ''
     if (status !== 'open' && status !== 'closed') {
-      findings.push(fail(`board Status must be open or closed: ${board}`))
+      findings.push(finding('board.status_value', { path: board }))
     } else if (!archived && status !== 'open') {
-      findings.push(fail(`open package board says closed: ${board}`))
+      findings.push(finding('board.open_says_closed', { path: board }))
     } else if (archived && status !== 'closed') {
-      findings.push(fail(`archived package board says open: ${board}`))
+      findings.push(finding('board.archived_says_open', { path: board }))
     }
 
     const updated = fields.get('Updated') ?? ''
     if (!/^\d{4}-\d{2}-\d{2}$/.test(updated)) {
-      findings.push(fail(`board Updated is not YYYY-MM-DD: ${board}`))
+      findings.push(finding('board.updated_format', { path: board }))
     }
 
     const phase = fields.get('Phase') ?? ''
     if (!/^P\d+ — /.test(phase)) {
-      findings.push(fail(`board Phase is not P<n> — focus: ${board}`))
+      findings.push(finding('board.phase_format', { path: board }))
     }
 
     const repositories = repositoryTable(text)
     if (repositories === null) {
-      findings.push(fail(`board has no Repositories table: ${board}`))
+      findings.push(finding('board.repositories_missing', { path: board }))
     } else {
       if (repositories.header.join('|') !== REPOSITORY_HEADER.join('|')) {
-        findings.push(
-          fail(
-            `board Repositories header is not Repository | Branch | Gate command | Last result: ${board}`,
-          ),
-        )
+        findings.push(finding('board.repositories_header', { path: board }))
       }
       if (repositories.rows.length === 0) {
-        findings.push(fail(`board Repositories table has no rows: ${board}`))
+        findings.push(finding('board.repositories_empty', { path: board }))
       }
       for (const row of repositories.rows) {
         if (row.length !== REPOSITORY_HEADER.length) {
-          findings.push(fail(`board Repositories row has ${row.length} cells: ${board}`))
+          findings.push(finding('board.repositories_cells', { path: board, cells: row.length }))
         } else if (row.some(cell => cell === '')) {
-          findings.push(fail(`board Repositories row has an empty cell: ${board}`))
+          findings.push(finding('board.repositories_cell_empty', { path: board }))
         }
       }
     }
@@ -368,12 +361,14 @@ export function boardDashboard(context: Context): Finding[] {
     const blocked = new Set(items.filter(item => item.status === 'blocked').map(item => item.id))
     for (const item of items) {
       if (!BOARD_STATUSES.has(item.status)) {
-        findings.push(fail(`board status ${pyRepr(item.status)} is unknown: ${board}: ${item.id}`))
+        findings.push(
+          finding('board.item_status', { path: board, status: pyRepr(item.status), item: item.id }),
+        )
       }
       if (item.status === 'dropped') {
         const file = `${key}/items/${item.file}`
         if (!context.isFile(file) || !context.readText(file).includes('**Disposition**:')) {
-          findings.push(fail(`dropped item has no Disposition: ${file}`))
+          findings.push(finding('board.dropped_disposition', { path: file }))
         }
       }
     }
@@ -381,12 +376,12 @@ export function boardDashboard(context: Context): Finding[] {
     const next = fields.get('Next') ?? ''
     const nextIds = itemIds(next)
     if (nextIds.length > 1) {
-      findings.push(fail(`board Next names more than one item: ${board}`))
+      findings.push(finding('board.next_multiple', { path: board }))
     }
     const nextKind = next.split(' — ')[0].trim()
     if (nextKind === 'none') {
       if (items.some(item => item.status === 'todo' || item.status === 'doing')) {
-        findings.push(fail(`board Next is none but an item is todo/doing: ${board}`))
+        findings.push(finding('board.next_none_with_work', { path: board }))
       }
     } else if (nextKind === 'closeout') {
       if (
@@ -394,18 +389,20 @@ export function boardDashboard(context: Context): Finding[] {
           item => item.status === 'todo' || item.status === 'doing' || item.status === 'blocked',
         )
       ) {
-        findings.push(fail(`board Next is closeout but work remains: ${board}`))
+        findings.push(finding('board.next_closeout_with_work', { path: board }))
       }
     } else {
       const id = next.match(ITEM_ID)?.[0]
       if (!id) {
-        findings.push(fail(`board Next is not an item, closeout, or none: ${board}`))
+        findings.push(finding('board.next_kind', { path: board }))
       } else {
         const item = byId.get(id)
         if (!item) {
-          findings.push(fail(`board Next points at a missing item: ${board}: ${id}`))
+          findings.push(finding('board.next_missing_item', { path: board, item: id }))
         } else if (item.status !== 'doing' && item.status !== 'todo') {
-          findings.push(fail(`board Next points at ${item.status} item: ${board}: ${id}`))
+          findings.push(
+            finding('board.next_wrong_status', { path: board, status: item.status, item: id }),
+          )
         }
       }
     }
@@ -413,25 +410,31 @@ export function boardDashboard(context: Context): Finding[] {
     const blockedLine = fields.get('Blocked') ?? ''
     if (blockedLine === 'none') {
       if (blocked.size > 0) {
-        findings.push(fail(`board Blocked is none but an item is blocked: ${board}`))
+        findings.push(finding('board.blocked_none_with_blocked', { path: board }))
       }
     } else {
       const clauses = blockedClauses(blockedLine)
       const named = new Set(clauses.map(clause => clause.id))
       for (const clause of clauses) {
         if (!clause.hasReason) {
-          findings.push(fail(`board Blocked has no reason: ${board}: ${clause.id}`))
+          findings.push(finding('board.blocked_no_reason', { path: board, item: clause.id }))
         }
         const item = byId.get(clause.id)
         if (!item) {
-          findings.push(fail(`board Blocked names a missing item: ${board}: ${clause.id}`))
+          findings.push(finding('board.blocked_missing_item', { path: board, item: clause.id }))
         } else if (item.status !== 'blocked') {
-          findings.push(fail(`board Blocked names ${item.status} item: ${board}: ${clause.id}`))
+          findings.push(
+            finding('board.blocked_wrong_status', {
+              path: board,
+              status: item.status,
+              item: clause.id,
+            }),
+          )
         }
       }
       for (const id of blocked) {
         if (!named.has(id)) {
-          findings.push(fail(`board Blocked omits blocked item: ${board}: ${id}`))
+          findings.push(finding('board.blocked_omitted', { path: board, item: id }))
         }
       }
     }
@@ -439,22 +442,24 @@ export function boardDashboard(context: Context): Finding[] {
     const lastDone = fields.get('Last done') ?? ''
     const lastDoneIds = itemIds(lastDone)
     if (lastDoneIds.length > 1) {
-      findings.push(fail(`board Last done names more than one item: ${board}`))
+      findings.push(finding('board.lastdone_multiple', { path: board }))
     }
     if (lastDone === 'none') {
       if (items.some(item => item.status === 'done')) {
-        findings.push(fail(`board Last done is none but an item is done: ${board}`))
+        findings.push(finding('board.lastdone_none_with_done', { path: board }))
       }
     } else {
       const id = lastDone.match(ITEM_ID)?.[0]
       if (!id) {
-        findings.push(fail(`board Last done is not an item or none: ${board}`))
+        findings.push(finding('board.lastdone_kind', { path: board }))
       } else {
         const item = byId.get(id)
         if (!item) {
-          findings.push(fail(`board Last done points at a missing item: ${board}: ${id}`))
+          findings.push(finding('board.lastdone_missing_item', { path: board, item: id }))
         } else if (item.status !== 'done') {
-          findings.push(fail(`board Last done points at ${item.status} item: ${board}: ${id}`))
+          findings.push(
+            finding('board.lastdone_wrong_status', { path: board, status: item.status, item: id }),
+          )
         }
       }
     }

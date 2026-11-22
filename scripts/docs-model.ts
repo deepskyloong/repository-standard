@@ -10,21 +10,6 @@
  * non-ASCII file would be the first place to look if a count finding ever moves.
  */
 
-export type Level = 'fail' | 'warn'
-
-export interface Finding {
-  level: Level
-  message: string
-}
-
-export function fail(message: string): Finding {
-  return { level: 'fail', message }
-}
-
-export function warn(message: string): Finding {
-  return { level: 'warn', message }
-}
-
 /** Python's `str.isspace()` set, minus the `\ufeff` that only JavaScript strips. */
 const PY_WS =
   ' \\t\\n\\r\\v\\f\\x1c-\\x1f\\x85\\xa0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000'

@@ -6,7 +6,7 @@ import { afterEach, describe, expect, test } from 'bun:test'
 
 import { createContext } from './check-context.ts'
 import { boardDashboard, packages } from './package-checks.ts'
-import { cleanupFixtures, fixture, messages } from './test-fixtures.ts'
+import { cleanupFixtures, codes, fixture } from './test-fixtures.ts'
 
 afterEach(cleanupFixtures)
 describe('packages', () => {
@@ -24,7 +24,7 @@ describe('packages', () => {
         }),
       ),
     )
-    expect(messages(findings)).toEqual(['unexpected package file: work-packages/x/stray.md'])
+    expect(codes(findings)).toEqual(['package.file_unexpected'])
   })
 
   test('an open package without a board is a finding', () => {
@@ -36,7 +36,7 @@ describe('packages', () => {
         }),
       ),
     )
-    expect(messages(findings)).toEqual(['missing package file: work-packages/x/board.md'])
+    expect(codes(findings)).toEqual(['package.file_missing'])
   })
 
   test('an archived package needs its summary', () => {
@@ -49,9 +49,7 @@ describe('packages', () => {
         }),
       ),
     )
-    expect(messages(findings)).toEqual([
-      'missing package summary: work-packages/archive/y/summary.md',
-    ])
+    expect(codes(findings)).toEqual(['package.summary_missing'])
   })
 
   test('an archived package may keep the pre-board shape', () => {
@@ -65,7 +63,7 @@ describe('packages', () => {
         }),
       ),
     )
-    expect(messages(findings)).toEqual([])
+    expect(codes(findings)).toEqual([])
   })
 
   test('evidence has to be named in the summary', () => {
@@ -80,9 +78,7 @@ describe('packages', () => {
         }),
       ),
     )
-    expect(messages(findings)).toEqual([
-      'evidence directory not named in summary: work-packages/x/audits/',
-    ])
+    expect(codes(findings)).toEqual(['package.evidence_unnamed'])
   })
 
   test('items/ is not evidence and needs no summary row', () => {
@@ -97,7 +93,7 @@ describe('packages', () => {
         }),
       ),
     )
-    expect(messages(findings)).toEqual([])
+    expect(codes(findings)).toEqual([])
   })
 
   test('a dated summary answers the reader questions', () => {
@@ -141,7 +137,7 @@ Evidence: none
         }),
       ),
     )
-    expect(messages(findings)).toEqual([])
+    expect(codes(findings)).toEqual([])
   })
 
   test('a dated summary names every missing part', () => {
@@ -156,14 +152,14 @@ Evidence: none
         }),
       ),
     )
-    expect(messages(findings)).toEqual([
-      'work-packages/x/summary.md: missing Gate:',
-      'work-packages/x/summary.md: missing Criteria:',
-      'work-packages/x/summary.md: missing ## Outcome',
-      'work-packages/x/summary.md: missing ## Residuals',
-      'work-packages/x/summary.md: missing ## Compromises',
-      'work-packages/x/summary.md: missing ## Verification',
-      'work-packages/x/summary.md: missing Evidence:',
+    expect(codes(findings)).toEqual([
+      'package.summary_part',
+      'package.summary_part',
+      'package.summary_part',
+      'package.summary_part',
+      'package.summary_part',
+      'package.summary_part',
+      'package.summary_part',
     ])
   })
 
@@ -178,7 +174,7 @@ Evidence: none
         }),
       ),
     )
-    expect(messages(findings)).toEqual([])
+    expect(codes(findings)).toEqual([])
   })
 
   test('an item file must be linked from the board', () => {
@@ -192,9 +188,7 @@ Evidence: none
         }),
       ),
     )
-    expect(messages(findings)).toEqual([
-      'package item not linked from board: work-packages/x/items/W01.md',
-    ])
+    expect(codes(findings)).toEqual(['package.item_unlinked'])
   })
 
   test('a board link without a file is a finding', () => {
@@ -207,9 +201,7 @@ Evidence: none
         }),
       ),
     )
-    expect(messages(findings)).toEqual([
-      'board links a missing package item: work-packages/x/items/W01.md',
-    ])
+    expect(codes(findings)).toEqual(['package.item_missing'])
   })
 
   test('an item heading must start with its ID', () => {
@@ -223,9 +215,7 @@ Evidence: none
         }),
       ),
     )
-    expect(messages(findings)).toEqual([
-      'package item heading does not start with its ID: work-packages/x/items/W01.md',
-    ])
+    expect(codes(findings)).toEqual(['package.item_heading'])
   })
 
   test('items/ holds only markdown item files', () => {
@@ -240,9 +230,7 @@ Evidence: none
         }),
       ),
     )
-    expect(messages(findings)).toEqual([
-      'unexpected entry in package items: work-packages/x/items/notes.txt',
-    ])
+    expect(codes(findings)).toEqual(['package.item_entry'])
   })
 })
 
@@ -287,7 +275,7 @@ describe('boardDashboard', () => {
 
   test('a consistent handoff card is silent', () => {
     const findings = boardDashboard(createContext(packageWithBoard(validBoard)))
-    expect(messages(findings)).toEqual([])
+    expect(codes(findings)).toEqual([])
   })
 
   test('Next and Last done stay adjacent', () => {
@@ -296,7 +284,7 @@ describe('boardDashboard', () => {
       '- Blocked: none\n- Last done: W01 — done (abc1234)',
     )
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain('board fields are out of order: work-packages/x/board.md')
+    expect(codes(findings)).toContain('board.field_order')
   })
 
   test('an empty field is a finding', () => {
@@ -305,7 +293,7 @@ describe('boardDashboard', () => {
       '- Gate:',
     )
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain('board field is empty: work-packages/x/board.md: Gate')
+    expect(codes(findings)).toContain('board.field_empty')
   })
 
   test('a Repositories row needs every cell', () => {
@@ -314,17 +302,13 @@ describe('boardDashboard', () => {
       '| standard | `main` | `bun run gate` |  |',
     )
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Repositories row has an empty cell: work-packages/x/board.md',
-    )
+    expect(codes(findings)).toContain('board.repositories_cell_empty')
   })
 
   test('Next names one item', () => {
     const board = validBoard.replace('- Next: W02 — start', '- Next: W02 — start; W03 — then')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Next names more than one item: work-packages/x/board.md',
-    )
+    expect(codes(findings)).toContain('board.next_multiple')
   })
 
   test('Last done names one item', () => {
@@ -333,33 +317,25 @@ describe('boardDashboard', () => {
       '- Last done: W01 — done (abc1234); W02 closed',
     )
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Last done names more than one item: work-packages/x/board.md',
-    )
+    expect(codes(findings)).toContain('board.lastdone_multiple')
   })
 
   test('Next points at a todo or doing item, not a done one', () => {
     const board = validBoard.replace('- Next: W02 — start', '- Next: W01 — finish')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Next points at done item: work-packages/x/board.md: W01',
-    )
+    expect(codes(findings)).toContain('board.next_wrong_status')
   })
 
   test('Next none is wrong while an item is todo', () => {
     const board = validBoard.replace('- Next: W02 — start', '- Next: none')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Next is none but an item is todo/doing: work-packages/x/board.md',
-    )
+    expect(codes(findings)).toContain('board.next_none_with_work')
   })
 
   test('Next closeout is wrong while work remains', () => {
     const board = validBoard.replace('- Next: W02 — start', '- Next: closeout — write summary')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Next is closeout but work remains: work-packages/x/board.md',
-    )
+    expect(codes(findings)).toContain('board.next_closeout_with_work')
   })
 
   test('Blocked none is wrong while an item is blocked', () => {
@@ -367,9 +343,7 @@ describe('boardDashboard', () => {
       .replace('- Next: W02 — start', '- Next: none')
       .replace('| [W02](items/W02.md) | Two | todo |', '| [W02](items/W02.md) | Two | blocked |')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Blocked is none but an item is blocked: work-packages/x/board.md',
-    )
+    expect(codes(findings)).toContain('board.blocked_none_with_blocked')
   })
 
   test('Blocked must name every blocked row', () => {
@@ -378,17 +352,13 @@ describe('boardDashboard', () => {
       .replace('- Blocked: none', '- Blocked: W01 (done)')
       .replace('| [W02](items/W02.md) | Two | todo |', '| [W02](items/W02.md) | Two | blocked |')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Blocked omits blocked item: work-packages/x/board.md: W02',
-    )
+    expect(codes(findings)).toContain('board.blocked_omitted')
   })
 
   test('Blocked may not name a non-blocked item', () => {
     const board = validBoard.replace('- Blocked: none', '- Blocked: W02 (waiting)')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Blocked names todo item: work-packages/x/board.md: W02',
-    )
+    expect(codes(findings)).toContain('board.blocked_wrong_status')
   })
 
   test('Blocked clauses carry a reason', () => {
@@ -397,23 +367,19 @@ describe('boardDashboard', () => {
       .replace('- Blocked: none', '- Blocked: W02')
       .replace('| [W02](items/W02.md) | Two | todo |', '| [W02](items/W02.md) | Two | blocked |')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Blocked has no reason: work-packages/x/board.md: W02',
-    )
+    expect(codes(findings)).toContain('board.blocked_no_reason')
   })
 
   test('Last done points at a done item', () => {
     const board = validBoard.replace('- Last done: W01 — done (abc1234)', '- Last done: W02 — done')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board Last done points at todo item: work-packages/x/board.md: W02',
-    )
+    expect(codes(findings)).toContain('board.lastdone_wrong_status')
   })
 
   test('Status follows the package location', () => {
     const board = validBoard.replace('- Status: open', '- Status: closed')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain('open package board says closed: work-packages/x/board.md')
+    expect(codes(findings)).toContain('board.open_says_closed')
   })
 
   test('a dropped item carries a Disposition', () => {
@@ -421,9 +387,7 @@ describe('boardDashboard', () => {
       .replace('- Next: W02 — start', '- Next: none')
       .replace('| [W02](items/W02.md) | Two | todo |', '| [W02](items/W02.md) | Two | dropped |')
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'dropped item has no Disposition: work-packages/x/items/W02.md',
-    )
+    expect(codes(findings)).toContain('board.dropped_disposition')
   })
 
   test('a board without the Repositories table is a finding', () => {
@@ -432,8 +396,83 @@ describe('boardDashboard', () => {
       '\n## Work items',
     )
     const findings = boardDashboard(createContext(packageWithBoard(board)))
-    expect(messages(findings)).toContain(
-      'board has no Repositories table: work-packages/x/board.md',
+    expect(codes(findings)).toContain('board.repositories_missing')
+  })
+
+  test('a malformed field set is reported field by field', () => {
+    const board = validBoard
+      .replace('- Status: open', '- Status: pending')
+      .replace('- Updated: 2026-11-20', '- Updated: 20-11-2026')
+      .replace('- Phase: P1 — work', '- Phase: work')
+      .replace('- Next: W02 — start', '- Next: later')
+      .replace('- Blocked: none', '- Blocked: W09 (missing)')
+      .replace('- Last done: W01 — done (abc1234)', '- Last done: W09 — done')
+      .replace('- Open decisions: none\n', '')
+    const findings = boardDashboard(createContext(packageWithBoard(board)))
+    const seen = codes(findings)
+    for (const code of [
+      'board.field_missing',
+      'board.status_value',
+      'board.updated_format',
+      'board.phase_format',
+      'board.next_kind',
+      'board.blocked_missing_item',
+      'board.lastdone_missing_item',
+    ]) {
+      expect(seen).toContain(code)
+    }
+  })
+
+  test('the Repositories table keeps its header, its rows, and their width', () => {
+    const header = validBoard.replace(
+      '| Repository | Branch | Gate command | Last result |',
+      '| Repo | Branch | Gate | Result |',
     )
+    const headerCodes = codes(boardDashboard(createContext(packageWithBoard(header))))
+    expect(headerCodes).toContain('board.repositories_header')
+    const empty = validBoard.replace(
+      '| standard | `main` | `bun run gate` | PASS (2026-11-20) |\n',
+      '',
+    )
+    const emptyCodes = codes(boardDashboard(createContext(packageWithBoard(empty))))
+    expect(emptyCodes).toContain('board.repositories_empty')
+    const narrow = validBoard.replace(
+      '| standard | `main` | `bun run gate` | PASS (2026-11-20) |',
+      '| standard | `main` | `bun run gate` |',
+    )
+    const narrowCodes = codes(boardDashboard(createContext(packageWithBoard(narrow))))
+    expect(narrowCodes).toContain('board.repositories_cells')
+  })
+
+  test('a status outside the five is a finding', () => {
+    const board = validBoard.replace(
+      '| [W02](items/W02.md) | Two | todo |',
+      '| [W02](items/W02.md) | Two | paused |',
+    )
+    const seen = codes(boardDashboard(createContext(packageWithBoard(board))))
+    expect(seen).toContain('board.item_status')
+  })
+
+  test('Next and Last done name a known item or none', () => {
+    const board = validBoard
+      .replace('- Next: W02 — start', '- Next: W09 — start')
+      .replace('- Last done: W01 — done (abc1234)', '- Last done: later')
+    const seen = codes(boardDashboard(createContext(packageWithBoard(board))))
+    expect(seen).toContain('board.next_missing_item')
+    expect(seen).toContain('board.lastdone_kind')
+  })
+
+  test('Last done none is wrong while an item is done', () => {
+    const board = validBoard.replace('- Last done: W01 — done (abc1234)', '- Last done: none')
+    const seen = codes(boardDashboard(createContext(packageWithBoard(board))))
+    expect(seen).toContain('board.lastdone_none_with_done')
+  })
+
+  test('an archived package that says open is a finding', () => {
+    const board = validBoard
+    const findings = boardDashboard(
+      createContext(fixture({ 'work-packages/archive/y/board.md': board })),
+    )
+    expect(codes(findings)).toContain('board.archived_says_open')
   })
 })
