@@ -5,3 +5,4 @@ Methods, incidents and explanations that change what a maintainer does next time
 | Directory | What it holds |
 | --- | --- |
 | [guides/](guides/README.md) | A method a maintainer applies next time |
+| [cases/](cases/README.md) | One incident, with the evidence that settled it |
