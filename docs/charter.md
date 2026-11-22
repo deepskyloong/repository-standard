@@ -2,7 +2,7 @@
 
 ## What this is
 
-A normative description of how a long-lived repository organizes its documents and its work. It is written to be copied: a new project reads the norm, copies the template, and starts with a structure instead of inventing one. An existing project reads the migrate mode of `docs/workflow.md` and moves one role at a time.
+A normative description of how a long-lived repository organizes its documents, its work, and the code principles every repository it governs shares. It is written to be copied: a new project reads the norm, copies the template, and starts with a structure instead of inventing one. An existing project reads the migrate mode of `docs/workflow.md` and moves one role at a time.
 
 ## Who it serves
 
@@ -14,12 +14,13 @@ One maintainer who runs several repositories over years, alone or with agents. N
 - The rules that keep those roles from duplicating each other: single source, index autonomy, change surface, measurable budgets.
 - The flow from an undecided idea to a closed work package to a recorded decision to a durable lesson.
 - The split between language-agnostic structure and language-specific toolchain.
+- Code principles that apply to any repository, and the worked shapes that carry them.
 - The migration path from an existing repository.
 
 ## Out of scope
 
-- Business architecture, module design, or algorithm choices.
-- Language style guides beyond the gate and the artifact tiers.
+- Business architecture, algorithm choices, or the internal design of one system.
+- Language style guides beyond the overlay's C6 contract and its gate; a preference no overlay states stays in the repository that holds it.
 - CI vendor configuration. CI is a forwarder of the local gate, not a second gate.
 - An interactive scaffolder, a template repository with variables, or a plugin. These are possible later; the spec does not depend on them.
 

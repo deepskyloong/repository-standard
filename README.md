@@ -1,6 +1,6 @@
 # Repository Standard
 
-A language-agnostic standard for maintainers starting a long-lived repository and for readers entering one: what each document is for, where it lives, and how work moves from an idea to a recorded decision.
+A language-agnostic standard for maintainers starting a long-lived repository and for readers entering one: what each document is for, where it lives, how work moves from an idea to a recorded decision, and which code principles hold across repositories.
 
 ## Why this exists
 
