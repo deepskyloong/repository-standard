@@ -15,9 +15,9 @@ export interface DirEntry {
 
 export interface Context {
   root: string
-  /** Markdown keys, repository-relative, posix, sorted. */
+  /** Markdown keys outside the skipped parts, repository-relative, posix, sorted. */
   files: string[]
-  /** Every directory key, repository-relative, posix, sorted. */
+  /** Every directory key outside the skipped parts, repository-relative, posix, sorted. */
   directories: string[]
   absolute(key: string): string
   exists(key: string): boolean
@@ -34,15 +34,15 @@ export function createContext(root: string): Context {
   const directories: string[] = []
   const walk = (directory: string): void => {
     for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      if (entry.isDirectory() && SKIP_PARTS.has(entry.name)) {
+        continue
+      }
       const child = path.join(directory, entry.name)
       if (entry.isDirectory()) {
         directories.push(toKey(child))
         walk(child)
       } else if (entry.isFile() && entry.name.endsWith('.md')) {
-        const key = toKey(child)
-        if (!key.split('/').some(part => SKIP_PARTS.has(part))) {
-          files.push(key)
-        }
+        files.push(toKey(child))
       }
     }
   }

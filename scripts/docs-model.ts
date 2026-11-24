@@ -23,7 +23,8 @@ const LINE_BREAK_AT_END = /(?:\r\n|\r|\n|\v|\f|\x1c|\x1d|\x1e|\x85|\u2028|\u2029
 export const TABLE_DELIMITER = new RegExp(`\\|[${PY_WS}:|-]+\\|`)
 export const TABLE_ROW = /^\|.*\|$/
 export const CODE_SPAN = /`[^`]*`/g
-export const SKIP_PARTS = new Set(['.git', 'node_modules', '__pycache__'])
+/** Directory names the reader never enters: version control, installed packages, byte-code caches, and the session folders host tools write inside the checkout. */
+export const SKIP_PARTS = new Set(['.git', 'node_modules', '__pycache__', '.zwork', '.workbuddy'])
 export const BACKLOG_STATUSES = new Set(['open', 'active', 'paused', 'closed'])
 export const CJK =
   /[\u3000-\u303f\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff00-\uffef]/
