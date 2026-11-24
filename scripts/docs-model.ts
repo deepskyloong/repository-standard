@@ -70,7 +70,7 @@ export const EXACT_BUDGETS = new Map<string, [number, number]>([
   ['docs/README.md', [6_000, 12_000]],
   ['docs/committing.md', [5_000, 8_000]],
   ['docs/norm/README.md', [6_000, 12_000]],
-  ['docs/decisions/README.md', [6_000, 12_000]],
+  ['docs/decisions/README.md', [8_000, 16_000]],
   ['docs/backlog/README.md', [8_000, 16_000]],
   ['template/README.md', [6_000, 12_000]],
   ['template/core/AGENTS.md', [20_000, 32_000]],
@@ -83,7 +83,7 @@ export const EXACT_BUDGETS = new Map<string, [number, number]>([
 /** Entry budgets, in table rows. */
 export const ENTRY_LIMITS = new Map<string, number>([
   ['docs/README.md', 40],
-  ['docs/decisions/README.md', 40],
+  ['docs/decisions/README.md', 60],
   ['docs/backlog/README.md', 60],
   ['template/README.md', 40],
 ])

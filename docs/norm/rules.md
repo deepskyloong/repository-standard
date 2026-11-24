@@ -60,6 +60,7 @@ Lines are not a volume unit: the same budget expressed in lines gives opposite v
 | Module `AGENTS.md` (deferred) | ≤5,000 / ≤8,000 | — |
 | Directory `README.md` (index) | ≤6,000 / ≤12,000 | ≤40 rows |
 | Backlog index | ≤8,000 / ≤16,000 | ≤60 rows |
+| Decisions index | ≤8,000 / ≤16,000 | ≤60 rows |
 | Overlay `README.md` (a guide, not an index) | ≤10,000 / ≤16,000 | — |
 | `status.md` | ≤10,000 / ≤16,000 EN; ≤5,000 / ≤8,000 ZH | — |
 | `GLOSSARY.md` | ≤7,500 / ≤12,000 | — |
@@ -72,7 +73,7 @@ The EN/ZH split exists because a Chinese character costs roughly 2.7× the token
 
 A volume budget has two lines. Soft is where judgment starts: a file may stay above it, and the gate prints a warning instead of failing. Hard is where the file is too long for its role: the gate fails. For prose, soft is a quarter above the old single line and hard is twice it, because that line is where files were shaped to stop; a judgment line placed on it would flag the normal top of the distribution rather than an outlier. An index derives its soft line from its row cap instead: 40 rows at the measured ~117 characters per row plus a preamble is about 5,100, so 6,000, and hard is double that. `docs/decisions/ADR-0013-two-tier-volume-budgets.md` records how the numbers were set and what was rejected. A limit with no judgment space stays one number.
 
-A directory `README.md` is an index and gets 6,000/12,000, from its 40-row cap at the measured ~117 characters per row plus a preamble; the backlog index's 60 rows give 8,000/16,000. An overlay `README.md` is a guide and gets 10,000/16,000. The path decides, not the file name.
+A directory `README.md` is an index and gets 6,000/12,000, from its 40-row cap at the measured ~117 characters per row plus a preamble; the backlog and decisions indexes' 60 rows give 8,000/16,000. An overlay `README.md` is a guide and gets 10,000/16,000. The path decides, not the file name.
 
 A `docs/committing.md` is short by design: `docs/norm/committing.md` carries the norm, and the page carries only a pointer and this repository's deviations. The 5,000 limit exists so it cannot grow into a second copy of the norm.
 

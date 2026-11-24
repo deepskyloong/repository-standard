@@ -98,6 +98,7 @@ describe('budgetFor', () => {
   test('an exact key wins', () => {
     expect(budgetFor('AGENTS.md', 'AGENTS.md')).toEqual([20_000, 32_000])
     expect(budgetFor('docs/norm/README.md', 'README.md')).toEqual([6_000, 12_000])
+    expect(budgetFor('docs/decisions/README.md', 'README.md')).toEqual([8_000, 16_000])
   })
 
   test('a docs page takes the page budget', () => {
@@ -124,9 +125,10 @@ describe('budgetFor', () => {
 })
 
 describe('entryLimit', () => {
-  test('the backlog index gets 60 rows', () => {
+  test('the backlog and decisions indexes get 60 rows', () => {
     expect(entryLimit('docs/backlog/README.md')).toBe(60)
     expect(entryLimit('template/first-use/docs/backlog/README.md')).toBe(60)
+    expect(entryLimit('docs/decisions/README.md')).toBe(60)
   })
 
   test('a directory README gets 40', () => {
