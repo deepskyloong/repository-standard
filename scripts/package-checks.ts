@@ -1,6 +1,6 @@
 /**
  * The work-package checks: the ledger shape and the board as a handoff card.
- * ADR-0021, ADR-0029, ADR-0030, and ADR-0036 define the package and its summary.
+ * ADR-0021, ADR-0029, ADR-0030, ADR-0036, and ADR-0040 define the package and its summary.
  */
 
 import type { Context } from './check-context.ts'
@@ -327,6 +327,15 @@ export function boardDashboard(context: Context): Finding[] {
       findings.push(finding('board.archived_says_open', { path: board }))
     }
 
+    if (archived) {
+      for (const field of ['Next', 'Blocked', 'Open decisions'] as const) {
+        const value = fields.get(field) ?? ''
+        if (value !== '' && value !== 'none') {
+          findings.push(finding('board.archived_field_active', { path: board, field }))
+        }
+      }
+    }
+
     const updated = fields.get('Updated') ?? ''
     if (!/^\d{4}-\d{2}-\d{2}$/.test(updated)) {
       findings.push(finding('board.updated_format', { path: board }))
@@ -363,6 +372,13 @@ export function boardDashboard(context: Context): Finding[] {
       if (!BOARD_STATUSES.has(item.status)) {
         findings.push(
           finding('board.item_status', { path: board, status: pyRepr(item.status), item: item.id }),
+        )
+      } else if (
+        archived &&
+        (item.status === 'todo' || item.status === 'doing' || item.status === 'blocked')
+      ) {
+        findings.push(
+          finding('board.archived_open_item', { path: board, item: item.id, status: item.status }),
         )
       }
       if (item.status === 'dropped') {

@@ -30,7 +30,7 @@ A rule earns a row only when it cuts across roles. A constraint on one artifact'
 - Files: `kebab-case.md`; ADRs `ADR-<nnnn>-slug.md`; backlog `B-<nnnn>-slug.md`. All-caps names are reserved for roles: `README.md`, `AGENTS.md`, `GLOSSARY.md`, `GLOSSARY-MAP.md`.
 - Numbered records use four digits: ADR `ADR-0001`, backlog `B-0001`. Record IDs start at `0001`. Norm pages are named by subject, not numbered; their order lives in `docs/norm/README.md`, so adding a page does not renumber the set. A migrated ADR series is zero-padded to four digits at migration and is never renumbered. A migrated backlog series is zero-padded to four digits at migration and is never renumbered: padding is not renumbering, and one width per series is the only shape a checker can express.
 - Prose is not hard-wrapped; one paragraph is one line. Code fences, tables, YAML, and a run of two or more `Label: value` fields keep their line breaks. The gate calls the `md-tools` CLI, which is the rule's only implementation.
-- Cite a file plus a section name (`docs/norm/roles.md`, "Five discriminations"). Do not cite section numbers.
+- Cite a file plus a section name (`docs/norm/roles.md`, "Five discriminations"). Do not cite section numbers or line numbers.
 - Section headings are unnumbered by default. Number them only when the number is part of the artifact a consumer cites: a legal clause, a fixed contract section, or a numbered procedure. A number added for visual order becomes wrong when the section moves.
 
 Naming and the prose rule are gated by `scripts/check.ts`; the other bullets are review criteria.

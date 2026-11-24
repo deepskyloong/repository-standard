@@ -12,8 +12,8 @@ One directory per effort that needs a ledger: `work-packages/<slug>/`, holding f
 - IDs are identifiers, not a sequence: `plan.md`'s row order is the order, and a phase may hold numbers issued later. A late discovery unrelated to an open item takes the next free `W<n>` and joins the phase where it was found; one that decomposes an open item takes the next letter under it, and the parent becomes a container that closes only when its children do and is never `Next` while one is open.
 - `spec.md` carries a `track:` field. See `docs/workflow.md`.
 - A work package that changes its goal is a new work package.
-- On closeout: write `summary.md`, take the four ledger files, `items/`, and the evidence directories it names, move the package to `work-packages/archive/<slug>/`, and move the row to the archive index.
-- A closeout that produced rules writes one knowledge guide at `docs/knowledge/guides/` before the freeze; `summary.md` names it, and it cites the summary for state instead of restating it. The package gains no fifth file: an archived package binds nothing, and a live page never cites it for authority (`{{NORM_SOURCE}}/docs/norm/flow.md`, closeout step 2).
+- On closeout: confirm no item is open and settle the branch state, relocate durable outputs (contracts, ADRs, topic guides at `docs/knowledge/guides/`, cases at `docs/knowledge/cases/`) and index them before writing `summary.md`, close `board.md`, move the package to `work-packages/archive/<slug>/`, and move the row to the archive index.
+- Topic guides (one method or scenario per page) and cases carry no package state and never link `summary.md`: an archived package binds nothing, is never cited for authority, and may later be retired (`{{NORM_SOURCE}}/docs/norm/flow.md`, "Closeout — six steps, in order"). `summary.md` names durable pages by repo-root path in backticks; the package gains no fifth file.
 
 ## Open
 
@@ -29,14 +29,12 @@ Closed packages move to `work-packages/archive/<slug>/`; `work-packages/archive/
 
 The six closeout steps are in `docs/workflow.md`; this checklist verifies them.
 
-- [ ] `summary.md` opens with `Date:`, `Acceptance:`, `Gate:`, and `Criteria:`, and has `Outcome`, `Residuals`, `Compromises`, and `Verification`; every residual has a destination, and `Compromises` holds only the three permitted types.
+- [ ] Every work item has one file under `items/` and one row in `board.md`, every item is `done` (citing evidence) or `dropped` (carrying a `Disposition`), and `board.md` has `Status: closed`, `Next: none`, `Blocked: none`, and `Open decisions: none`.
+- [ ] The branch is merged, or the maintainer's answer on an unmerged branch is recorded in `summary.md`'s `Outcome` (and in `Residuals` when left unmerged).
+- [ ] Contracts, ADRs, guides, and cases have homes and directory `README.md` links; no optional role was created without its trigger.
+- [ ] Where the effort produced transferable rules or incident evidence, topic guides at `docs/knowledge/guides/` and cases at `docs/knowledge/cases/` carry no package state, never link `summary.md`, and are named in `summary.md`.
+- [ ] `summary.md` recomputes closeout counts, opens with `Date:`, `Acceptance:`, `Gate:`, and `Criteria:`, and has `Outcome`, `Residuals`, `Compromises`, `Verification`, and `Evidence:`; every residual has a destination, and `Compromises` holds only the three permitted types.
 - [ ] `summary.md` names every evidence directory; none is empty.
-- [ ] Contracts, ADRs, and knowledge files have homes and index links.
-- [ ] Where the effort produced rules that outlive it, `summary.md` names the guide at `docs/knowledge/guides/`, and the guide cites the summary instead of restating state.
-- [ ] `rg -l '<slug>'` was run.
-- [ ] Every done work item cites evidence; every dropped item carries a `Disposition`; every open item is in the board's index, and the dashboard's `Next` and `Blocked` point at the right rows.
-- [ ] Every work item has one file under `items/` and one row in the board's index.
-- [ ] This table no longer lists the package; `work-packages/archive/README.md` does.
-- [ ] The package is at `work-packages/archive/<slug>/` and frozen.
-- [ ] The branch is merged, or the maintainer's answer on an unmerged branch is recorded in `summary.md`'s `Outcome`.
+- [ ] This table no longer lists the package; `work-packages/archive/README.md` does, and the package is at `work-packages/archive/<slug>/` and frozen.
+- [ ] Any retired or moved path still cited by a record is registered in `docs/adapters.md` with no file at the old path, and `rg -l '<slug>'` was run.
 - [ ] The gate is green.

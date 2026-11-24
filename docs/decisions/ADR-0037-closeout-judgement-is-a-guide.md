@@ -1,6 +1,6 @@
 # ADR-0037 — The closeout's judgement is a knowledge guide, not a fifth ledger file
 
-Status: Accepted (2026-11-21)
+Status: Superseded in part by [ADR-0040](ADR-0040-closeout-ordering-and-lifecycle-safe-provenance.md) (2026-11-23); the four-file ledger and the guide destination still hold.
 
 ## Context
 

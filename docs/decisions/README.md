@@ -42,9 +42,10 @@ Each choice with rejected alternatives gets its own file. An ADR is never delete
 | [ADR-0034](ADR-0034-evidence-one-entry-per-artifact.md) | Evidence gives each artifact one entry and names what it proves | Accepted |
 | [ADR-0035](ADR-0035-python-overlay-r12-stage.md) | The Python overlay ships R12's table stage | Accepted |
 | [ADR-0036](ADR-0036-closeout-summary-answers-reader-questions.md) | The closeout summary answers the reader's questions | Accepted |
-| [ADR-0037](ADR-0037-closeout-judgement-is-a-guide.md) | The closeout's judgement is a knowledge guide, not a fifth ledger file | Accepted |
+| [ADR-0037](ADR-0037-closeout-judgement-is-a-guide.md) | The closeout's judgement is a knowledge guide, not a fifth ledger file | Superseded in part by ADR-0040 |
 | [ADR-0038](ADR-0038-code-principles-are-a-norm-chapter.md) | Code principles are a norm page and a pattern chapter, not knowledge pages or a role | Superseded in part by ADR-0039 |
 | [ADR-0039](ADR-0039-principles-page-is-its-own-delivery.md) | The principles page is delivered by the prompt, not by a quoting skill | Accepted |
+| [ADR-0040](ADR-0040-closeout-ordering-and-lifecycle-safe-provenance.md) | Closeout orders relocation before summary and decouples guide provenance from package lifetime | Accepted |
 
 ## Format
 

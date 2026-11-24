@@ -14,7 +14,7 @@ English for every file this repository maintains: prose, templates, commit messa
 
 ## Citation
 
-Cite a file name plus a section name (`docs/norm/roles.md`, "Five discriminations"). Do not cite section numbers: they rot when a page is reordered, and a stale number is worse than no number. Number section headings only when the number is part of a cited artifact: a legal clause, a fixed contract section, or a numbered procedure. Otherwise leave them unnumbered.
+Cite a file name plus a section name (`docs/norm/roles.md`, "Five discriminations"). Do not cite section numbers or line numbers: they rot when a page is edited or reordered, and a stale number is worse than no number. Number section headings only when the number is part of a cited artifact: a legal clause, a fixed contract section, or a numbered procedure. Otherwise leave them unnumbered.
 
 ## The five discriminations
 

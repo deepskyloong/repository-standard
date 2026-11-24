@@ -475,4 +475,27 @@ describe('boardDashboard', () => {
     )
     expect(codes(findings)).toContain('board.archived_says_open')
   })
+
+  test('an archived package cannot keep open items or active handoff fields', () => {
+    const blockedBoard = validBoard
+      .replace('- Status: open', '- Status: closed')
+      .replace('- Next: W02 — start', '- Next: none')
+      .replace('- Blocked: none', '- Blocked: W02 (waiting)')
+      .replace('- Open decisions: none', '- Open decisions: Q1 (owner)')
+      .replace('| [W02](items/W02.md) | Two | todo |', '| [W02](items/W02.md) | Two | blocked |')
+    const findings = boardDashboard(
+      createContext(
+        fixture({
+          'work-packages/archive/y/board.md': blockedBoard,
+          'work-packages/archive/y/items/W01.md': '# W01 — One\n\n**Evidence**: abc\n',
+          'work-packages/archive/y/items/W02.md': '# W02 — Two\n',
+        }),
+      ),
+    )
+    expect(codes(findings)).toEqual([
+      'board.archived_field_active',
+      'board.archived_field_active',
+      'board.archived_open_item',
+    ])
+  })
 })

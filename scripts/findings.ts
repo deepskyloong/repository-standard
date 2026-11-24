@@ -121,6 +121,14 @@ const SPECS = {
   'board.status_value': { level: 'fail', template: '{path}: Status must be open or closed' },
   'board.open_says_closed': { level: 'fail', template: '{path}: open package says closed' },
   'board.archived_says_open': { level: 'fail', template: '{path}: archived package says open' },
+  'board.archived_open_item': {
+    level: 'fail',
+    template: '{path}: archived package has an open item: {item} ({status})',
+  },
+  'board.archived_field_active': {
+    level: 'fail',
+    template: '{path}: archived package {field} must be none',
+  },
   'board.updated_format': { level: 'fail', template: '{path}: Updated is not YYYY-MM-DD' },
   'board.phase_format': { level: 'fail', template: '{path}: Phase is not P<n> — focus' },
   'board.repositories_missing': { level: 'fail', template: '{path}: no Repositories table' },
