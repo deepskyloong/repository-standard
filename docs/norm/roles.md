@@ -33,6 +33,25 @@ When two roles disagree, precedence is **charter > `AGENTS.md` > page-level role
 
 `GLOSSARY.md` is a glossary, not a norm page. Each entry is a bold term, a one- or two-sentence definition of what the term is, and an `_Avoid_` line naming the synonyms it replaces; group entries under a subheading when a natural cluster emerges. A budget, a procedure, or an implementation rule stays in the page that owns it and is linked, not restated.
 
+### Decision record (ADR)
+
+The title is the decision stated as a sentence a reader can disagree with. The file opens with a list of `Label: value` fields:
+
+- `Status` — the state and the date it took effect: `Accepted (YYYY-MM-DD)`; once superseded, `Superseded by ADR-<nnnn> (YYYY-MM-DD)` or `Superseded in part by ADR-<nnnn> (YYYY-MM-DD)` followed by the part that still holds, with the superseding record as a Markdown link.
+- `Scope` — what the decision binds and what it leaves alone.
+- `Related` — links to the durable pages and records the decision touches; omitted when there are none.
+
+A record outlives what it cites: `Related` and `Context` link durable pages and records, and name an effort, a branch, a commit, or a path that may move in backticks, never as a link (ADR-0040). The sections then answer one question each, in this order:
+
+- `## Context` — the situation and the forces that made a choice necessary, never the argument for one side.
+- `## Decision` — the rules chosen, in sentences a later maintainer can follow.
+- `## Reasoning` — why the chosen rules answer those forces, one point per force and nothing else; a losing option's reason is written once, in the table.
+- `## Consequences` — what becomes easier, what becomes harder or impossible, and how each cost is mitigated or watched; no argument.
+- `## When to reopen` — the observable conditions under which the decision would be wrong; they are what makes the row's `Exit` apply, and a reader who finds that one holds writes the superseding ADR instead of editing the body.
+- `## Rejected alternatives` — a table with one row per losing option and the reason it lost; the chosen option is not a row, and a record without a rejected alternative is a note, not a decision.
+
+Superseding changes the `Status` line and the index row and nothing else. A record keeps the shape it was written with: a format change binds the records written after it.
+
 ## Optional, admitted by trigger
 
 | Role | Home | Admission | Exit | Authority | Trigger |

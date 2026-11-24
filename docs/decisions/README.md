@@ -46,7 +46,8 @@ Each choice with rejected alternatives gets its own file. An ADR is never delete
 | [ADR-0038](ADR-0038-code-principles-are-a-norm-chapter.md) | Code principles are a norm page and a pattern chapter, not knowledge pages or a role | Superseded in part by ADR-0039 |
 | [ADR-0039](ADR-0039-principles-page-is-its-own-delivery.md) | The principles page is delivered by the prompt, not by a quoting skill | Accepted |
 | [ADR-0040](ADR-0040-closeout-ordering-and-lifecycle-safe-provenance.md) | Closeout orders relocation before summary and decouples guide provenance from package lifetime | Accepted |
+| [ADR-0041](ADR-0041-decision-record-shape.md) | A decision record separates the decision, its reasoning, its exit conditions, and the alternatives that lost; the decisions index holds 60 rows | Accepted |
 
 ## Format
 
-`ADR-<nnnn>-slug.md`, with `Status`, `Context`, `Decision`, `Options considered`, `Consequences`. Options must include at least one rejected alternative and the reason it lost; an ADR without a rejected alternative is a note, not a decision.
+`ADR-<nnnn>-slug.md`. The shape is the one `docs/norm/roles.md`, "Decision record (ADR)", states.
