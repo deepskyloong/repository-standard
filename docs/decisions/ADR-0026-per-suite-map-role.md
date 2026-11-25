@@ -1,6 +1,6 @@
 # ADR-0026 — The per-suite map is a role, not the adapter registry
 
-Status: Accepted (2026-11-19)
+Status: Accepted (2026-11-19). Superseded in part by [ADR-0028](ADR-0028-a-moved-path-is-a-row.md) (2026-11-19); the Suite tracks role still holds.
 
 ## Context
 

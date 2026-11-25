@@ -38,8 +38,8 @@ Two obligations follow from those names: a pointer must be reasonably available 
 | --- | --- | --- |
 | `core` | Language-agnostic roles, rules, flow, budgets | Every repository has it. No exceptions. |
 | `overlay` | Toolchain, gate command, code layout, dependency policy, writing rules for one language | Exactly one overlay is active. Two overlays in one repository is a monorepo with two languages, which is a special case, not the default. |
-| `adapter` | A registry of third-party suite tracks that own their directories, legacy paths that cannot move yet, plus a compatibility whitelist | Never a physical directory. It is a table in `docs/adapters.md`. |
-| `optional` | Roles that appear only under a trigger: `docs/contracts/`, `docs/architecture/`, `docs/operations/`, `docs/toolchain/`, `docs/knowledge/`, `docs/status.md`, module-level `AGENTS.md` | Absent by default. An absent optional role is correct, not incomplete. |
+| `adapter` | A registry of third-party suite tracks that own their directories, legacy paths that cannot move yet, moved paths with their successor, plus a compatibility whitelist | Never a physical directory. It is a table in `docs/adapters.md`. |
+| `optional` | Roles that appear only under a trigger: `docs/contracts/`, `docs/architecture/`, `docs/operations/`, `docs/toolchain/`, `docs/knowledge/`, `docs/suite-tracks.md`, `docs/status.md`, module-level `AGENTS.md` | Absent by default. An absent optional role is correct, not incomplete. |
 
 The distinction between `adapter` and `optional` matters. `optional` is a role you may add; `adapter` is a foreign system you cannot move and must therefore register.
 
@@ -58,7 +58,8 @@ The distinction between `adapter` and `optional` matters. `optional` is a role y
 │   ├── conventions.md         # language, naming, citation, discriminations
 │   ├── committing.md          # commit norm pointer and deviations
 │   ├── status.md              # current phase, what works, next action (optional)
-│   ├── adapters.md            # adapter registry (when a foreign suite exists)
+│   ├── suite-tracks.md        # suite-owned roots and artifact shape (optional)
+│   ├── adapters.md            # adapter registry (when its trigger fires)
 │   ├── contracts/             # durable contracts (optional)
 │   ├── architecture/          # system organization (optional)
 │   ├── operations/            # runbooks (optional)

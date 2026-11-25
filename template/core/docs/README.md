@@ -6,7 +6,7 @@
 - **What does not go here**: generated files, toolchain configuration (it lives beside the code it configures), or a copy of a value owned elsewhere.
 - **Structure**: each topic gets its own file. A new subdirectory gets its own `README.md` before it gets a second file. The index lists direct children in one row each and does not repeat a subdirectory's file list.
 - **Naming**: follows `conventions.md`; this page does not restate the naming rules.
-- **Optional roles**: `contracts/`, `architecture/`, `operations/`, `toolchain/`, `knowledge/`, `status.md`, and `adapters.md` appear when their trigger does. Their absence is correct.
+- **Optional roles**: `contracts/`, `architecture/`, `operations/`, `toolchain/`, `knowledge/`, `suite-tracks.md`, `status.md`, and `adapters.md` appear when their trigger does. Their absence is correct.
 
 ## Index
 

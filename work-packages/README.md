@@ -17,8 +17,8 @@ One directory per effort that needs a ledger: `work-packages/<slug>/`, holding f
 
 ## Open
 
-| Slug | Goal | Track | Status |
-| --- | --- | --- | --- |
+| Slug | Goal | Track |
+| --- | --- | --- |
 
 ## Archived
 
@@ -32,8 +32,9 @@ The six closeout steps are in `docs/norm/flow.md`; this checklist verifies them.
 - [ ] The branch is merged, or the maintainer's answer on an unmerged branch is recorded in `summary.md`'s `Outcome` (and in `Residuals` when left unmerged).
 - [ ] Contracts, ADRs, guides, and cases have homes and directory `README.md` links; no optional role was created without its trigger.
 - [ ] Where the effort produced transferable rules or incident evidence, topic guides at `docs/knowledge/guides/` and cases at `docs/knowledge/cases/` carry no package state, never link `summary.md`, and are named in `summary.md`.
-- [ ] `summary.md` recomputes closeout counts, opens with `Date:`, `Acceptance:`, `Gate:`, and `Criteria:`, and has `Outcome`, `Residuals`, `Compromises`, `Verification`, and `Evidence:`; every residual has a destination, and `Compromises` holds only the three permitted types.
+- [ ] `summary.md` exists, is inside budget, recomputes closeout counts, opens with `Date:`, `Acceptance:`, `Gate:`, and `Criteria:`, and has `Outcome`, `Residuals`, `Compromises`, `Verification`, and `Evidence:`; every residual has a destination, and `Compromises` holds only the three permitted types.
 - [ ] `summary.md` names every evidence directory; none is empty.
 - [ ] This table no longer lists the package; `work-packages/archive/README.md` does, and the package is at `work-packages/archive/<slug>/` and frozen.
-- [ ] Any retired or moved path still cited by a record is registered in `docs/adapters.md` with no file at the old path, and `rg -l '<slug>'` was run.
+- [ ] A backlog item this effort answered is marked `closed` in `docs/backlog/README.md`.
+- [ ] Any retired or moved path still cited by a record is registered in `docs/adapters.md` with no file at the old path, and `rg -l '<slug>'` was run with every survivor explained.
 - [ ] The gate is green.

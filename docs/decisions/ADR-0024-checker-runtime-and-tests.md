@@ -1,6 +1,6 @@
 # ADR-0024 — The document checker is TypeScript, split by responsibility, and tested
 
-Status: Accepted (2026-11-19)
+Status: Accepted (2026-11-19). Superseded in part by [ADR-0028](ADR-0028-a-moved-path-is-a-row.md) (2026-11-19); the TypeScript checker split and test rule still hold.
 
 ## Context
 

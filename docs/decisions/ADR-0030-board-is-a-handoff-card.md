@@ -1,6 +1,6 @@
 # ADR-0030 — The board's Current state is a handoff card
 
-Status: Accepted (2026-11-20)
+Status: Accepted (2026-11-20). Superseded in part by [ADR-0036](ADR-0036-closeout-summary-answers-reader-questions.md) (2026-11-21); the board decision still holds.
 
 ## Context
 

@@ -55,7 +55,6 @@ When a foreign tool cannot accept the standard's paths, pick one mechanism and r
 | Wrapper command | A tool's output path is configurable only through its CLI | A line in the tool's config; another thing to remember |
 | Path constant | Code needs to agree on a location | A single exported constant; import discipline |
 | Copy, do not link | A tool cannot follow a symlink or a junction | Two copies; one must be marked generated |
-| Generated forwarding stub | A frozen record cites an old path | A file that must not be edited |
 | Ignore and register | The path is not worth moving | A row in the adapter registry; the path stays foreign |
 
 The last mechanism is the default. Moving a foreign tool's output costs more than one registry row, and the registry is the place where the exception is visible.

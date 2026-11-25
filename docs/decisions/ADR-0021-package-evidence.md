@@ -1,6 +1,6 @@
 # ADR-0021 — A work package carries the evidence it owns
 
-Status: Accepted (2026-11-18)
+Status: Accepted (2026-11-18). Superseded in part by [ADR-0029](ADR-0029-work-item-files.md) (2026-11-19); the package-evidence rule still holds.
 
 ## Context
 

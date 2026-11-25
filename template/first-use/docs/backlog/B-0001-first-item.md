@@ -10,4 +10,4 @@ The facts that make this worth revisiting: a count, a command output, an inciden
 
 ## Revisit when
 
-The event that makes this actionable — a condition outside it, or a freed slot in the plan. Not a date. When it fires, decide one of: keep, change, delete.
+The event that makes this actionable — a condition outside it, or a freed slot in the plan. Not a date. When it fires, decide one of: start, defer again, or close. Do not delete the file or its index row.

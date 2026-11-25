@@ -1,6 +1,6 @@
 # Suite tracks
 
-Each workflow suite this repository runs writes into roots it owns and loads by name. This page records that shape per suite; `docs/adapters.md` carries the tolerance and the disposition, and `docs/norm/roles.md` "Suite tracks" carries the rule.
+Each workflow suite this repository runs writes into roots it owns and loads by name. This page records that shape per suite; `docs/adapters.md` carries the tolerance and the disposition, and `{{NORM_SOURCE}}/docs/norm/roles.md`, "Suite tracks", carries the rule.
 
 ## Tracks
 

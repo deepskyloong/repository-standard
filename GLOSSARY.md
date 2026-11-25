@@ -38,7 +38,7 @@ _Avoid_: layer
 
 _Avoid_: plugin, extension
 
-**adapter**: The registry and compatibility whitelist for third-party suite tracks and legacy paths; not a physical directory layer.
+**adapter**: The registry and compatibility whitelist for third-party suite tracks, legacy paths that cannot move yet, and moved paths with their successor; not a physical directory layer.
 
 _Avoid_: integration layer
 
@@ -96,7 +96,7 @@ _Avoid_: simplified mode
 
 ### Code
 
-**principle**: A constraint that applies wherever code is written, stated once at `docs/norm/code.md`; it is `weak` unless a gate enforces it, and every entry names an observable symptom.
+**principle**: A constraint that applies wherever code is written, stated once at `docs/norm/code.md`; it is `weak` and every entry names an observable symptom.
 
 _Avoid_: best practice, guideline, convention (for this sense)
 
@@ -120,4 +120,4 @@ _Avoid_: build output
 
 **legacy path**: A repository path kept during migration because a frozen record still cites it; retirable when the last consumer is gone.
 
-_Avoid_: old dir
+_Avoid_: old dir, moved path

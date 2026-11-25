@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted (2026-11-18)
+Accepted (2026-11-18). Superseded in part by [ADR-0027](ADR-0027-retire-governance-role.md) (2026-11-19); the norm-page naming rule still holds.
 
 ## Context
 
