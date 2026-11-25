@@ -47,6 +47,7 @@ Each choice with rejected alternatives gets its own file. An ADR is never delete
 | [ADR-0039](ADR-0039-principles-page-is-its-own-delivery.md) | The principles page is delivered by the prompt, not by a quoting skill | Accepted |
 | [ADR-0040](ADR-0040-closeout-ordering-and-lifecycle-safe-provenance.md) | Closeout orders relocation before summary and decouples guide provenance from package lifetime | Accepted |
 | [ADR-0041](ADR-0041-decision-record-shape.md) | A decision record separates the decision, its reasoning, its exit conditions, and the alternatives that lost; the decisions index holds 60 rows | Accepted |
+| [ADR-0042](ADR-0042-reversibility-is-not-admission.md) | Reversibility is not an ADR admission requirement; the existing relitigation test decides | Accepted |
 
 ## Format
 

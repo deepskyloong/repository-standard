@@ -35,6 +35,8 @@ When two roles disagree, precedence is **charter > `AGENTS.md` > page-level role
 
 ### Decision record (ADR)
 
+Reversibility is not an admission requirement. A readily reversed choice still earns an ADR when it has rejected alternatives and would otherwise be relitigated; the record prevents that repeated discussion. The cost of reversal may support the admission judgment, but is not required.
+
 The title is the decision stated as a sentence a reader can disagree with. The file opens with a list of `Label: value` fields:
 
 - `Status` — the state and the date it took effect: `Accepted (YYYY-MM-DD)`; once superseded, `Superseded by ADR-<nnnn> (YYYY-MM-DD)` or `Superseded in part by ADR-<nnnn> (YYYY-MM-DD)` followed by the part that still holds, with the superseding record as a Markdown link.
