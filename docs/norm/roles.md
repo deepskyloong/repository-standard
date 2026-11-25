@@ -15,7 +15,7 @@ When two roles disagree, precedence is **charter > `AGENTS.md` > page-level role
 | Directory index | `<dir>/README.md`, unless another row names it | Direct children membership, subtree placement, and directory-local rules that have no page role: one row per child, no totals | Deleted with the directory | Binds membership, directory-local rules, and where a child may be placed |
 | Charter | `/docs/charter.md` | Scope, non-goals, hard constraints, success criteria | A non-goal is removed only by an ADR | Binds scope; a request outside it is refused |
 | Structure | `/docs/structure.md` | Levels (root / member / module), placement rules, artifact tiers; membership lives in each directory README | Updated when a level or placement rule changes, not when a file is added | Binds what "where does this go" means |
-| Conventions | `/docs/conventions.md` | Language, naming, citation, the five discriminations; a target page points at the norm source and records deviations | Updated when a convention changes | Binds how a document is written |
+| Conventions | `/docs/conventions.md` | Language, naming, citation, the five discriminations, and the form of agent-facing instructions; a target page points at the norm source and records deviations | Updated when a convention changes | Binds how a document is written |
 | Committing | `/docs/committing.md` | A base pointer to `docs/norm/committing.md` plus this repository's deviations | Rewritten when the convention changes; never deleted | Binds how a commit message is written; a project may add types and scopes, never weaken the header, the why-body, or one logical change |
 
 ## Present from the first real use

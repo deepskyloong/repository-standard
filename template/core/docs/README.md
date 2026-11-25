@@ -14,5 +14,5 @@
 | --- | --- |
 | [charter.md](charter.md) | Scope, non-goals, constraints, success criteria |
 | [structure.md](structure.md) | Levels, placement rules, artifact tiers |
-| [conventions.md](conventions.md) | Language, naming, citation, five discriminations |
+| [conventions.md](conventions.md) | Language, naming, citation, five discriminations, agent-facing instruction form |
 | [committing.md](committing.md) | A base pointer to the committing norm plus this repository's deviations |

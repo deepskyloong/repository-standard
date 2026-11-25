@@ -30,7 +30,7 @@ It runs the Bun format check over code, the Prettier check over Markdown, the ch
 | Change the README contract | `docs/norm/repository-readme.md`, `template/core/README.md` |
 | Move an existing repository onto this standard (Mode 3), or operate on a target | `docs/workflow.md` |
 | Change where this repository's own files live | `docs/structure.md` |
-| Change language, naming, citation, or a discrimination | `docs/conventions.md` |
+| Change language, naming, citation, a discrimination, or an agent-facing instruction | `docs/conventions.md` |
 | Change the commit message convention | `docs/norm/committing.md`, `docs/committing.md` |
 | Ask why a choice was made, or what is deferred | `docs/decisions/`, `docs/backlog/` |
 
@@ -46,6 +46,7 @@ It runs the Bun format check over code, the Prettier check over Markdown, the ch
 | Move or rename a directory | every pointer, proven by `rg -l '<old-path>'` returning nothing |
 | Change a placeholder value or notation | `template/README.md` |
 | Change naming or citation rules | `docs/norm/rules.md`, `docs/conventions.md`, `template/core/docs/conventions.md`, `docs/README.md`, `template/core/docs/README.md`, `scripts/docs-model.ts` naming patterns |
+| Change the agent-facing instruction rule | `docs/norm/roles.md`, `docs/norm/foundations.md`, `docs/conventions.md`, `docs/README.md`, `template/core/AGENTS.md`, `template/core/docs/README.md`, this file |
 | Change the commit convention | `docs/norm/committing.md`, `docs/committing.md`, `template/core/docs/committing.md` |
 | Change the closeout steps, the acceptance checklist, or the summary shape | `work-packages/README.md`, `template/effort/work-packages/README.md`, `template/effort/work-packages/summary.md`, `template/effort/docs/workflow.md` |
 | Change the skill's modes or steps | `SKILL.md`, `docs/norm/roles.md` when a mode reads a new role |

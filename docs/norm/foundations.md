@@ -55,7 +55,7 @@ The distinction between `adapter` and `optional` matters. `optional` is a role y
 │   ├── README.md              # index + governance of the docs tree
 │   ├── charter.md             # scope, non-goals
 │   ├── structure.md           # layout, placement rules, artifact tiers
-│   ├── conventions.md         # language, naming, citation, discriminations
+│   ├── conventions.md         # language, naming, citation, discriminations, instruction form
 │   ├── committing.md          # commit norm pointer and deviations
 │   ├── status.md              # current phase, what works, next action (optional)
 │   ├── suite-tracks.md        # suite-owned roots and artifact shape (optional)

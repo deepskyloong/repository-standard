@@ -30,6 +30,7 @@ A repository that adopts these norms points at this page: its `docs/conventions.
 
 ## Document discipline
 
+- **State the target behavior.** In an instruction an agent follows, name the observable action that completes it: "A paragraph is one line". Reserve a prohibition for a hard guardrail whose refusal cannot be expressed as a target, and pair it with a positive target where one can be stated; express an exact condition as `only when`. A rewrite that names no observable action is a no-op. This is a weak review criterion for instructions written or revised; frozen records, commit messages, descriptive prose, and existing hard guardrails keep their wording.
 - **A table is not a grid in the source.** One space on each side of a cell, no padding to column width. Padding hides the row that changed inside a diff and hands every untouched row to the reformat commit in `git blame`; renderers ignore it anyway (`docs/norm/rules.md`, R12).
 - **Record method, not measurement.** A count, duration, coverage number, node count, resolved version, or benchmark result is written as the command that produces it. A historical value survives only when the value itself is the fact, marked with a date and `for-the-record`.
 - **A named set's cardinality is part of its name.** "Four layers" or "five discriminations" defines a set; changing the number is a standard change, not a count to update in place. Do not confuse this with a current inventory count.

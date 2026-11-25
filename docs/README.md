@@ -15,7 +15,7 @@
 | --- | --- |
 | [charter.md](charter.md) | Scope, non-goals, hard constraints, success criteria |
 | [structure.md](structure.md) | Levels, placement rules, artifact tiers |
-| [conventions.md](conventions.md) | Language, naming, citation, five role discriminations |
+| [conventions.md](conventions.md) | Language, naming, citation, five role discriminations, agent-facing instruction form |
 | [committing.md](committing.md) | Commit message convention: a base pointer to the norm source plus this repository's deviations |
 | [workflow.md](workflow.md) | The source's forge / audit / migrate workflow; the effort lifecycle norm is in `docs/norm/flow.md`, and its target page is `template/effort/docs/workflow.md` |
 | [norm/](norm/README.md) | The binding text: foundations, roles, repository README, flow, rules, overlays, committing |
