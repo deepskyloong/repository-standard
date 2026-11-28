@@ -28,7 +28,7 @@
 
 ## Verification
 
-- Survivors: <each pointer that remains at closeout and why it is valid; use `rg -l '<slug>'`>
+- Survivors: <each pointer that remains at closeout and why it is valid, the status page's closeout link included when one exists; use `rg -l '<slug>'`>
 - Reproduce: `<command>` — <expected or observed result>; `<command>` — <expected or observed result>
 - Not applicable: <check and why it does not apply; omit this line when none>
 

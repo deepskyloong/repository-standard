@@ -36,5 +36,6 @@ The six closeout steps are in `docs/norm/flow.md`; this checklist verifies them.
 - [ ] `summary.md` names every evidence directory; none is empty.
 - [ ] This table no longer lists the package; `work-packages/archive/README.md` does, and the package is at `work-packages/archive/<slug>/` and frozen.
 - [ ] A backlog item this effort answered is marked `closed` in `docs/backlog/README.md`.
+- [ ] When the repository has a status page, it no longer names this effort as next, and its date, the fact the close moved, the next action, and the `summary.md` link are current.
 - [ ] Any retired or moved path still cited by a record is registered in `docs/adapters.md` with no file at the old path, and `rg -l '<slug>'` was run with every survivor explained.
 - [ ] The gate is green.
