@@ -101,3 +101,5 @@ A role enters a repository only when all five hold:
 5. Its budget is stated with a unit and a command.
 
 If any of the five is missing, the role does not exist yet. Write it down in `docs/backlog/` instead, with the trigger that would admit it.
+
+An optional role's trigger is a floor, not a target. It says when the role may enter; it does not say a repository is incomplete without it. The page then has to earn its carrying cost: someone rewrites it at each close, and a stale page is worse than an absent one. When one package, one index, or one generated page already answers the question the role would answer, the trigger is not met and the page is ceremony.

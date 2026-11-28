@@ -78,6 +78,8 @@ An explainer is narrative, not a rule: it walks a subsystem in the order it runs
 
 ### Status page
 
+Whether a repository needs the page at all is a second test. A repository on one front reads its state from that package's `board.md`; a stable repository reads it from the backlog and `git log`; the page serves a repository still being shaped, where several fronts move at different speeds, the next action is not settled by an existing plan, and a reader must recover the whole state without shared memory. The general rule — a trigger is a floor, and an absent optional role is correct — is `foundations.md` "When a role is admitted".
+
 Status is the snapshot a reader finishes in one pass. Three line kinds are admitted: a present fact (a number that can drift carries its date or the command that produces it — `rules.md` R10), an open front with its next action, or a pointer to the page that owns the detail.
 
 Everything else is refused: a finished effort's narrative, a closed milestone's verdict and counts, and a decision's reasoning belong to the package, the plan and the ADR. Status states the conclusion and links the record; a second copy outlives a rewrite and then contradicts it.
