@@ -61,7 +61,7 @@ Superseding changes the `Status` line and the index row and nothing else. A reco
 | Durable contract | `/docs/contracts/<topic>.md` | A fact a consumer may rely on across efforts: API shape, data schema, CLI surface, compatibility promise | Deleted when the artifact it constrains is deleted | Binds its consumers; a break needs a migration step | A second effort depends on the same fact |
 | Architecture | `/docs/architecture/<topic>.md` | How the system is organized and what a change must respect: components and their boundaries, data and control flow, failure responses, invariants; an interface promise belongs to contracts and a choice's reason to an ADR | Deleted when the system it describes is gone | Binds a change's shape; a contradiction updates the page or records why not | The first change that must respect a boundary it does not own |
 | Operations page | `/docs/operations/<topic>.md` | A procedure someone must follow under pressure: deploy, rollback, restore, rotate | Deleted when the procedure disappears | Binds the operator; a step that cannot be followed is a bug | The first procedure that cannot be remembered |
-| Status | `/docs/status.md` | Current phase, what works, what does not, next action; aggregated across open fronts, linking to packages | Rewritten in place; never accumulates history | — | The project has more than one open front |
+| Status | `/docs/status.md` | Current phase, what works, what does not work, next action; aggregated across open fronts, linking to packages | Rewritten in place; a close replaces the line it moved, never appending beside it | — | The project has more than one open front |
 | Toolchain traps | `/docs/toolchain/<language>.md` | Reproducible failure modes and their fix, each with the command that shows it | Deleted when the trap stops reproducing | Binds the trap's treatment; a fix that ignores the reproduction command is a bug | The second environment-specific trap |
 | Knowledge guide | `/docs/knowledge/guides/<topic>.md` | A method that changes what a maintainer does next time | Deleted when it stops being true | — | The same mistake is about to be made twice |
 | Knowledge case | `/docs/knowledge/cases/<topic>.md` | One incident, with the evidence that settled it | Deleted when the evidence is no longer citable | Binds the evidence it records; a later decision may cite it, not restate it | An incident worth citing in a review |
@@ -75,6 +75,16 @@ Superseding changes the `Status` line and the index row and nothing else. A reco
 A trigger is an admission condition, not a rule; it carries no `strong` / `weak` label. Countable triggers (`a second effort`, `the second trap`, `more than one open front`) are observable; judgment triggers (`the first change that must respect a boundary`, `an incident worth citing`) are review decisions, not gate conditions.
 
 An explainer is narrative, not a rule: it walks a subsystem in the order it runs and says a term once, pointing at `GLOSSARY.md` for the definition. Every `##` section ends at the page that owns the fact it used — the first section, which says why the page exists, is exempt — so the reader can stop reading the explainer at any point and still be on owned ground. A page that would mostly link instead of explain is an index, not an explainer.
+
+### Status page
+
+Status is the snapshot a reader finishes in one pass. Three line kinds are admitted: a present fact (a number that can drift carries its date or the command that produces it — `rules.md` R10), an open front with its next action, or a pointer to the page that owns the detail.
+
+Everything else is refused: a finished effort's narrative, a closed milestone's verdict and counts, and a decision's reasoning belong to the package, the plan and the ADR. Status states the conclusion and links the record; a second copy outlives a rewrite and then contradicts it.
+
+A close edits four slots — the page's date, the fact it moved, the next action, the closeout link — and leaves the rest as it was. A sentence appended beside the old one is how a snapshot becomes a log.
+
+Headings follow `rules.md` "Naming and citation": a living page changes shape while frozen records cite it, and a renumbered page carries one line mapping the old numbers to the new titles.
 
 ## Five discriminations
 

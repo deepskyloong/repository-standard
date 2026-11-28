@@ -57,7 +57,7 @@ The distinction between `adapter` and `optional` matters. `optional` is a role y
 │   ├── structure.md           # layout, placement rules, artifact tiers
 │   ├── conventions.md         # language, naming, citation, discriminations, instruction form
 │   ├── committing.md          # commit norm pointer and deviations
-│   ├── status.md              # current phase, what works, next action (optional)
+│   ├── status.md              # current phase, what works, what does not work, next action (optional)
 │   ├── suite-tracks.md        # suite-owned roots and artifact shape (optional)
 │   ├── adapters.md            # adapter registry (when its trigger fires)
 │   ├── contracts/             # durable contracts (optional)
