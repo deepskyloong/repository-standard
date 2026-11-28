@@ -51,6 +51,7 @@ Lines are not a volume unit: the same budget expressed in lines gives opposite v
 | Root `AGENTS.md` | ≤20,000 / ≤32,000 | routing table ≤12 rows |
 | Root `README.md` | ≤10,000 / ≤16,000 | install ≤3 steps |
 | Any `docs/` page | ≤10,000 / ≤16,000 | — |
+| `docs/norm/roles.md` | ≤18,000 / ≤24,000 | — |
 | ADR | ≤7,500 / ≤12,000 | — |
 | Backlog item | ≤5,000 / ≤8,000 | — |
 | `docs/workflow.md` | ≤10,000 / ≤16,000 | — |
@@ -74,6 +75,8 @@ The EN/ZH split exists because a Chinese character costs roughly 2.7× the token
 A volume budget has two lines. Soft is where judgment starts: a file may stay above it, and the gate prints a warning instead of failing. Hard is where the file is too long for its role: the gate fails. For prose, soft is a quarter above the old single line and hard is twice it, because that line is where files were shaped to stop; a judgment line placed on it would flag the normal top of the distribution rather than an outlier. An index derives its soft line from its row cap instead: 40 rows at the measured ~117 characters per row plus a preamble is about 5,100, so 6,000, and hard is double that. `docs/decisions/ADR-0013-two-tier-volume-budgets.md` records how the numbers were set and what was rejected. A limit with no judgment space stays one number.
 
 A directory `README.md` is an index and gets 6,000/12,000, from its 40-row cap at the measured ~117 characters per row plus a preamble; the backlog and decisions indexes' 60 rows give 8,000/16,000. An overlay `README.md` is a guide and gets 10,000/16,000. The path decides, not the file name.
+
+`docs/norm/roles.md` carries its own line because it is a reference catalog read by question rather than end to end: its volume is binding role rows and the admission tests that keep roles apart, not narrative. The measured sample on 2026-11-28 is 16,206 non-whitespace characters, leaving 1,794 to the soft line and 7,794 to the hard line.
 
 A `docs/committing.md` is short by design: `docs/norm/committing.md` carries the norm, and the page carries only a pointer and this repository's deviations. The 5,000 limit exists so it cannot grow into a second copy of the norm.
 

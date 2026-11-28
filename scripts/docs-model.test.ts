@@ -98,11 +98,12 @@ describe('budgetFor', () => {
   test('an exact key wins', () => {
     expect(budgetFor('AGENTS.md', 'AGENTS.md')).toEqual([20_000, 32_000])
     expect(budgetFor('docs/norm/README.md', 'README.md')).toEqual([6_000, 12_000])
+    expect(budgetFor('docs/norm/roles.md', 'roles.md')).toEqual([18_000, 24_000])
     expect(budgetFor('docs/decisions/README.md', 'README.md')).toEqual([8_000, 16_000])
   })
 
   test('a docs page takes the page budget', () => {
-    expect(budgetFor('docs/norm/roles.md', 'roles.md')).toEqual([10_000, 16_000])
+    expect(budgetFor('docs/norm/foundations.md', 'foundations.md')).toEqual([10_000, 16_000])
   })
 
   test('an ADR and a backlog item take their series budget', () => {

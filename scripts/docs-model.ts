@@ -71,6 +71,7 @@ export const EXACT_BUDGETS = new Map<string, [number, number]>([
   ['docs/README.md', [6_000, 12_000]],
   ['docs/committing.md', [5_000, 8_000]],
   ['docs/norm/README.md', [6_000, 12_000]],
+  ['docs/norm/roles.md', [18_000, 24_000]],
   ['docs/decisions/README.md', [8_000, 16_000]],
   ['docs/backlog/README.md', [8_000, 16_000]],
   ['template/README.md', [6_000, 12_000]],
